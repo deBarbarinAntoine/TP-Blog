@@ -5,6 +5,8 @@ import (
 	"net/http"
 )
 
+var mySession Session
+
 // Root handler redirects to index handler.
 func rootHandler(w http.ResponseWriter, r *http.Request) {
 	err := tmpl["index"].ExecuteTemplate(w, "base", nil)
