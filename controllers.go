@@ -79,6 +79,18 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func adminHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // for testing purposes
+	if r.URL.Path != "/admin" {
+		errorHandler(w, r, http.StatusNotFound)
+		return
+	}
+	err := tmpl["admin"].ExecuteTemplate(w, "base", nil)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
 func addArticleHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // for testing purposes
 	if r.URL.Path != "/addarticle" {

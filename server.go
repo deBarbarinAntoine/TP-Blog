@@ -52,6 +52,7 @@ func Run() {
 	tmpl["article"] = template.Must(template.ParseFiles(tmplPath+"article.gohtml", tmplPath+"base.gohtml"))
 	tmpl["search"] = template.Must(template.ParseFiles(tmplPath+"search.gohtml", tmplPath+"base.gohtml"))
 	tmpl["login"] = template.Must(template.ParseFiles(tmplPath+"login.gohtml", tmplPath+"base.gohtml"))
+	tmpl["admin"] = template.Must(template.ParseFiles(tmplPath+"admin.gohtml", tmplPath+"base.gohtml"))
 	tmpl["addarticle"] = template.Must(template.ParseFiles(tmplPath+"addarticle.gohtml", tmplPath+"base.gohtml"))
 	tmpl["modifyarticle"] = template.Must(template.ParseFiles(tmplPath+"modifyarticle.gohtml", tmplPath+"base.gohtml"))
 	tmpl["about"] = template.Must(template.ParseFiles(tmplPath+"about.gohtml", tmplPath+"base.gohtml"))
