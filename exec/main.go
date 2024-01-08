@@ -1,7 +1,7 @@
 package main
 
-import "spotifyAPI"
+import "TPBlog"
 
 func main() {
-	spotifyAPI.Run()
+	TPBlog.Run()
 }
