@@ -48,8 +48,14 @@ func runServer() {
 func Run() {
 	tmplPath := path + "templates/"
 	tmpl["index"] = template.Must(template.ParseFiles(tmplPath+"index.gohtml", tmplPath+"base.gohtml"))
-	tmpl["albumJul"] = template.Must(template.ParseFiles(tmplPath+"albumJul.gohtml", tmplPath+"base.gohtml"))
-	tmpl["trackSdm"] = template.Must(template.ParseFiles(tmplPath+"trackSdm.gohtml", tmplPath+"base.gohtml"))
+	tmpl["category"] = template.Must(template.ParseFiles(tmplPath+"category.gohtml", tmplPath+"base.gohtml"))
+	tmpl["article"] = template.Must(template.ParseFiles(tmplPath+"article.gohtml", tmplPath+"base.gohtml"))
+	tmpl["search"] = template.Must(template.ParseFiles(tmplPath+"search.gohtml", tmplPath+"base.gohtml"))
+	tmpl["login"] = template.Must(template.ParseFiles(tmplPath+"login.gohtml", tmplPath+"base.gohtml"))
+	tmpl["addarticle"] = template.Must(template.ParseFiles(tmplPath+"addarticle.gohtml", tmplPath+"base.gohtml"))
+	tmpl["modifyarticle"] = template.Must(template.ParseFiles(tmplPath+"modifyarticle.gohtml", tmplPath+"base.gohtml"))
+	tmpl["about"] = template.Must(template.ParseFiles(tmplPath+"about.gohtml", tmplPath+"base.gohtml"))
+	tmpl["error404"] = template.Must(template.ParseFiles(tmplPath+"error404.gohtml", tmplPath+"base.gohtml"))
 	routes()
 	fileServer()
 	runServer()
