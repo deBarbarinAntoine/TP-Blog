@@ -1,0 +1,53 @@
+{{define "base"}}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{template "staticPath" .}}css/style.css">
+    {{template "title" .}}
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="{{template "staticPath" .}}img/thorgify-logo.png" alt="Thorgify-logo"/>
+            <span>Thorgify</span>
+        </div>
+        <nav>
+            <div class="navDiv">
+                <div class="navLink">
+                    <a href="/">Accueil</a>
+                </div>
+                <div class="line {{template "home-line-class" .}}"></div>
+            </div>
+            <div class="navDiv">
+                <div class="navLink">
+                    <a href="https://github.com/deBarbarinAntoine/TP-API-Spotify">À propos</a>
+                </div>
+                <div class="line {{template "about-line-class" .}}"></div>
+            </div>
+            <div class="navDiv">
+                <div class="navLink">
+                    <a href="/album/jul">Albums</a>
+                </div>
+                <div class="line {{template "album-line-class" .}}"></div>
+            </div>
+            <div class="navDiv">
+                <div class="navLink">
+                    <a href="/track/sdm">Morceaux</a>
+                </div>
+                <div class="line {{template "track-line-class" .}}"></div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="ctn">
+        {{template "body" .}}
+    </div>
+
+    <footer>
+
+    </footer>
+</body>
+</html>
+{{end}}

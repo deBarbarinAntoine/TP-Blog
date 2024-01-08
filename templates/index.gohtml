@@ -1,0 +1,29 @@
+{{define "staticPath"}}{{.Base.StaticPath}}{{end}}
+
+{{define "title"}}<title>{{.Base.Title}}</title>{{end}}
+
+{{define "home-line-class"}}{{.Base.Line}}{{end}}
+{{define "about-line-class"}}{{end}}
+{{define "album-line-class"}}{{end}}
+{{define "track-line-class"}}{{end}}
+
+{{define "body"}}
+    <div class="index-all">
+        <h1>Bienvenue sur Thorgify !</h1>
+        <h2>Trouvez votre musique préférée</h2>
+        <div class="index-ctn">
+            {{range .Artists}}
+                <div class="index-artist">
+                    <a href="{{.Link}}" class="ind-artist-link">
+                        <div class="ind-artist-img">
+                            <img src="{{.ImgUrl}}" alt="{{.Name}}'s image">
+                        </div>
+                        <div class="ind-artist-txt">
+                            <div>{{.Title}}</div>
+                        </div>
+                    </a>
+                </div>
+            {{end}}
+        </div>
+    </div>
+{{end}}
