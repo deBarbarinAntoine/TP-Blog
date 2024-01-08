@@ -5,15 +5,16 @@ import (
 	"log"
 	"math/rand"
 	"os"
+	"regexp"
 	"strings"
 )
 
-var filename = path + "content/articles.json"
+var jsonfile = path + "content/articles.json"
 
 func RetrieveArticles() ([]Article, error) {
 	var articles []Article
 
-	data, err := os.ReadFile(filename)
+	data, err := os.ReadFile(jsonfile)
 
 	if len(data) == 0 {
 		return nil, nil
@@ -53,7 +54,7 @@ func changeArticles(articles []Article) {
 	if errJSON != nil {
 		log.Fatal("log: addArticle()\t JSON Marshall error!\n", errJSON)
 	}
-	errWrite := os.WriteFile(filename, data, 0666)
+	errWrite := os.WriteFile(jsonfile, data, 0666)
 	if errWrite != nil {
 		log.Fatal("log: addArticle()\t WriteFile error!\n", errWrite)
 	}
@@ -121,4 +122,55 @@ func modifyArticle(updatedArticle Article) {
 		}
 	}
 	changeArticles(articles)
+}
+
+func formatArticle(article Article) string {
+	var noMatch bool
+	var ctn string
+	title3 := regexp.MustCompile("### .+\\n")
+	titles3 := title3.FindAllString(article.Content, -1)
+	if len(titles3) == 0 {
+		noMatch = true
+	}
+	if !noMatch {
+		noMatch = false
+		for i, title := range titles3 {
+			openMark := regexp.MustCompile("### ")
+			endMark := regexp.MustCompile("\\n")
+			title = openMark.ReplaceAllString(title, "<div class=\"ctn-title3\">")
+			title = endMark.ReplaceAllString(title, "</div>\n")
+			ctn = strings.Replace(article.Content, titles3[i], title, -1)
+		}
+	}
+	title2 := regexp.MustCompile("## .+\\n")
+	titles2 := title2.FindAllString(article.Content, -1)
+	if len(titles2) == 0 {
+		noMatch = true
+	}
+	if !noMatch {
+		noMatch = false
+		for i, title := range titles2 {
+			openMark := regexp.MustCompile("## ")
+			endMark := regexp.MustCompile("\\n")
+			title = openMark.ReplaceAllString(title, "<div class=\"ctn-title2\">")
+			title = endMark.ReplaceAllString(title, "</div>\n")
+			ctn = strings.Replace(article.Content, titles2[i], title, -1)
+		}
+	}
+	title1 := regexp.MustCompile("# .+\\n")
+	titles1 := title1.FindAllString(article.Content, -1)
+	if len(titles1) == 0 {
+		noMatch = true
+	}
+	if !noMatch {
+		noMatch = false
+		for i, title := range titles1 {
+			openMark := regexp.MustCompile("# ")
+			endMark := regexp.MustCompile("\\n")
+			title = openMark.ReplaceAllString(title, "<div class=\"ctn-title1\">")
+			title = endMark.ReplaceAllString(title, "</div>\n")
+			ctn = strings.Replace(article.Content, titles1[i], title, -1)
+		}
+	}
+	return ctn
 }
