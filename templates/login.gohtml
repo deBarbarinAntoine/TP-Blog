@@ -1,0 +1,22 @@
+{{define "staticPath"}}{{.Base.StaticPath}}{{end}}
+
+{{define "title"}}<title>{{.Base.Title}}</title>{{end}}
+
+{{define "home-line-class"}}{{.Base.Line}}{{end}}
+{{define "about-line-class"}}{{end}}
+{{define "album-line-class"}}{{end}}
+{{define "track-line-class"}}{{end}}
+
+{{define "body"}}
+    <div class="div-center">
+        <div>
+            <form action="/user/login/check" method="post">
+                <label for="username">Pseudo :</label>
+                <input type="text" name="username" id="username" placeholder="Pseudo" required autofocus>
+                <label for="password">Mot de passe :</label>
+                <input type="password" name="password" id="password" required>
+                <button type="submit">Valider</button>
+            </form>
+        </div>
+    </div>
+{{end}}
