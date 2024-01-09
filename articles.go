@@ -102,13 +102,13 @@ func randomArticles() []Article {
 	if err != nil {
 		log.Fatal("log: RetrieveArticles() error!\n", err)
 	}
-	if len(articles) < 10 {
+	if len(articles) < 12 {
 		return articles
 	}
 	rand.Shuffle(len(articles), func(i, j int) {
 		articles[i], articles[j] = articles[j], articles[i]
 	})
-	return articles[:10]
+	return articles[:12]
 }
 
 func modifyArticle(updatedArticle Article) {
