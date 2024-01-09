@@ -1,3 +1,33 @@
+# Templates Documentation
+## Showing structure of data sent to every template
+
+The variable sent to any template is ```data``` and is always composed of at least one structure.
+
+Here is an example of the template's execution:
+```go
+err := tmpl["index"].ExecuteTemplate(w, "base", data)
+```
+
+---
+
+## List of all templates:
+
+- [index](#indexgohtml)
+- [category](#categorygohtml)
+- [article](#articlegohtml)
+- [search](#searchgohtml)
+- [login](#logingohtml)
+- [create user](#createusergohtml)
+- [modify user](#modifyusergohtml)
+- [admin](#admingohtml)
+- [add article](#addarticlegohtml)
+- [modify article](#modifyarticlegohtml)
+- [delete article](#deletearticlegohtml)
+- [about](#aboutgohtml)
+- [error 404](#error404gohtml)
+
+---
+
 ### index.gohtml
 ```go
 data := struct {
@@ -18,6 +48,8 @@ data := struct {
     }
 }
 ```
+
+---
 
 ### category.gohtml
 ```go
@@ -40,6 +72,8 @@ data := struct {
 }
 ```
 
+---
+
 ### article.gohtml
 ```go
 data := struct {
@@ -60,6 +94,8 @@ data := struct {
     }
 }
 ```
+
+---
 
 ### search.gohtml
 ```go
@@ -84,6 +120,8 @@ data := struct {
 }
 ```
 
+---
+
 ### login.gohtml
 ```go
 data := struct {
@@ -94,6 +132,8 @@ data := struct {
     Message string // message if there is a problem logging (username or password): <div class="message">Wrong username or password!</div>
 }
 ```
+
+---
 
 ### createuser.gohtml
 ```go
@@ -106,6 +146,8 @@ data := struct {
 }
 ```
 
+---
+
 ### modifyuser.gohtml
 ```go
 data := struct {
@@ -116,6 +158,8 @@ data := struct {
     Message string // message if there is a problem modifying user info (username or password): <div class="message">Invalid data!</div>
 }
 ```
+
+---
 
 ### admin.gohtml
 ```go
@@ -130,6 +174,8 @@ data := struct {
     }
 }
 ```
+
+---
 
 ### addarticle.gohtml
 ```go
@@ -157,6 +203,8 @@ data := struct {
 }
 ```
 
+---
+
 ### modifyarticle.gohtml
 ```go
 data := struct {
@@ -177,6 +225,8 @@ data := struct {
     }
 }
 ```
+
+---
 
 ### deletearticle.gohtml
 ```go
@@ -200,6 +250,8 @@ data := struct {
 }
 ```
 
+---
+
 ### about.gohtml
 ```go
 data := struct {
@@ -209,6 +261,8 @@ data := struct {
     }
 }
 ```
+
+---
 
 ### error404.gohtml
 ```go
