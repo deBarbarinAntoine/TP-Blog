@@ -1,4 +1,3 @@
-<a name="top"></a>
 # Templates Documentation
 ## Showing structure of data sent to every template
 
@@ -11,7 +10,7 @@ err := tmpl["index"].ExecuteTemplate(w, "base", data)
 
 ---
 
-## List of all templates:
+## Templates:
 
 - [index](#indexgohtml)
 - [category](#categorygohtml)
@@ -28,6 +27,7 @@ err := tmpl["index"].ExecuteTemplate(w, "base", data)
 - [error 404](#error404gohtml)
 
 ---
+
 
 ### index.gohtml
 ```go
@@ -49,6 +49,7 @@ data := struct {
     }
 }
 ```
+[↑ Return to table of content](#templates)
 
 ---
 
@@ -72,6 +73,8 @@ data := struct {
     }
 }
 ```
+[↑ Return to table of content](#templates)
+
 
 ---
 
@@ -95,6 +98,8 @@ data := struct {
     }
 }
 ```
+[↑ Return to table of content](#templates)
+
 
 ---
 
@@ -120,6 +125,8 @@ data := struct {
     Message string  // message if the search doesn't match any content: <div class="message">There is no article matching your research!</div>
 }
 ```
+[↑ Return to table of content](#templates)
+
 
 ---
 
@@ -133,6 +140,8 @@ data := struct {
     Message string // message if there is a problem logging (username or password): <div class="message">Wrong username or password!</div>
 }
 ```
+[↑ Return to table of content](#templates)
+
 
 ---
 
@@ -146,6 +155,8 @@ data := struct {
     Message string // message if there is a problem signing up (username or password): <div class="message">Username already used!</div>
 }
 ```
+[↑ Return to table of content](#templates)
+
 
 ---
 
@@ -159,6 +170,8 @@ data := struct {
     Message string // message if there is a problem modifying user info (username or password): <div class="message">Invalid data!</div>
 }
 ```
+[↑ Return to table of content](#templates)
+
 
 ---
 
@@ -175,6 +188,8 @@ data := struct {
     }
 }
 ```
+[↑ Return to table of content](#templates)
+
 
 ---
 
@@ -203,6 +218,8 @@ data := struct {
     }
 }
 ```
+[↑ Return to table of content](#templates)
+
 
 ---
 
@@ -226,6 +243,8 @@ data := struct {
     }
 }
 ```
+[↑ Return to table of content](#templates)
+
 
 ---
 
@@ -250,6 +269,8 @@ data := struct {
     Message string  // message asking for confirmation: <div class="message">Do you really want to delete that article ?</div>
 }
 ```
+[↑ Return to table of content](#templates)
+
 
 ---
 
@@ -262,6 +283,8 @@ data := struct {
     }
 }
 ```
+[↑ Return to table of content](#templates)
+
 
 ---
 
@@ -274,9 +297,5 @@ data := struct {
     }
 }
 ```
-<link rel="stylesheet" href="docTemplates.css">
-<a class="top-link hide" href="#top">↑</a>
-
-
-
+[↑ Return to table of content](#templates)
 
