@@ -17,7 +17,7 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
-	http.RedirectHandler("/index", http.StatusSeeOther) // see if it works, otherwise, change to http.Redirect(w, r, "/index", http.StatusSeeOther)
+	http.Redirect(w, r, "/index", http.StatusSeeOther)
 }
 
 // Index page handler.
@@ -50,6 +50,10 @@ func categoryHandler(w http.ResponseWriter, r *http.Request) {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
+	if !r.URL.Query().Has("category") {
+		errorHandler(w, r, http.StatusNotFound)
+		return
+	}
 	category := r.URL.Query().Get("category")
 	articles := selectCategory(category)
 	data := struct {
@@ -62,6 +66,7 @@ func categoryHandler(w http.ResponseWriter, r *http.Request) {
 		},
 		Category: articles,
 	}
+	fmt.Printf("log: data: %#v\n", data) // testing
 	err := tmpl["category"].ExecuteTemplate(w, "base", data)
 	if err != nil {
 		log.Fatal(err)
@@ -71,6 +76,10 @@ func categoryHandler(w http.ResponseWriter, r *http.Request) {
 func articleHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
 	if r.URL.Path != "/article" {
+		errorHandler(w, r, http.StatusNotFound)
+		return
+	}
+	if !r.URL.Query().Has("article") {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
@@ -89,7 +98,9 @@ func articleHandler(w http.ResponseWriter, r *http.Request) {
 		},
 		Article: article,
 	}
+	fmt.Printf("log: data before formatArticle(): %#v\n", data) // testing
 	data.Article.Content = formatArticle(article)
+	fmt.Printf("log: data: %#v\n", data) // testing
 	err = tmpl["article"].ExecuteTemplate(w, "base", data)
 	if err != nil {
 		log.Fatal(err)
@@ -99,6 +110,10 @@ func articleHandler(w http.ResponseWriter, r *http.Request) {
 func searchHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
 	if r.URL.Path != "/search" {
+		errorHandler(w, r, http.StatusNotFound)
+		return
+	}
+	if !r.URL.Query().Has("q") {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
@@ -122,6 +137,7 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 		Search:   search,
 		Message:  message,
 	}
+	fmt.Printf("log: data: %#v\n", data) // testing
 	err := tmpl["search"].ExecuteTemplate(w, "base", data)
 	if err != nil {
 		log.Fatal(err)
@@ -148,6 +164,7 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 		},
 		Message: message,
 	}
+	fmt.Printf("log: data: %#v\n", data) // testing
 	err := tmpl["login"].ExecuteTemplate(w, "base", data)
 	if err != nil {
 		log.Fatal(err)
@@ -209,6 +226,7 @@ func createUserHandler(w http.ResponseWriter, r *http.Request) {
 		},
 		Message: message,
 	}
+	fmt.Printf("log: data: %#v\n", data) // testing
 	err := tmpl["createuser"].ExecuteTemplate(w, "base", data)
 	if err != nil {
 		log.Fatal(err)
@@ -243,9 +261,8 @@ func modifyUserHandler(w http.ResponseWriter, r *http.Request) {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
-	status := r.URL.Query().Get("error")
 	var message string
-	if status == "error" {
+	if r.URL.Query().Get("error") == "error" {
 		message = "<div class=\"message\">Invalid data!</div>"
 	}
 	data := struct {
@@ -258,6 +275,7 @@ func modifyUserHandler(w http.ResponseWriter, r *http.Request) {
 		},
 		Message: message,
 	}
+	fmt.Printf("log: data: %#v\n", data) // testing
 	err := tmpl["modifyuser"].ExecuteTemplate(w, "base", data)
 	if err != nil {
 		log.Fatal(err)
@@ -294,7 +312,7 @@ func modifyUserTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	} else {
-		http.Redirect(w, r, "/modifyuser", http.StatusMovedPermanently)
+		http.Redirect(w, r, "/modifyuser", http.StatusSeeOther)
 		return
 	}
 }
@@ -315,6 +333,7 @@ func adminHandler(w http.ResponseWriter, r *http.Request) {
 		},
 		User: mySession.MyUser,
 	}
+	fmt.Printf("log: data: %#v\n", data) // testing
 	err := tmpl["admin"].ExecuteTemplate(w, "base", data)
 	if err != nil {
 		log.Fatal(err)
@@ -351,6 +370,7 @@ func addArticleHandler(w http.ResponseWriter, r *http.Request) {
 			Content:      "",
 		},
 	}
+	fmt.Printf("log: data: %#v\n", data) // testing
 	err := tmpl["addarticle"].ExecuteTemplate(w, "base", data)
 	if err != nil {
 		log.Fatal(err)
@@ -372,12 +392,17 @@ func addArticleTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 		Content:  r.FormValue("content"),
 	}
 	addArticle(newCtn)
+	fmt.Printf("log: newCtn: %#v\n", newCtn) // testing
 	http.Redirect(w, r, "/admin", http.StatusSeeOther)
 }
 
 func modifyArticleHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
 	if r.URL.Path != "/modifyarticle" {
+		errorHandler(w, r, http.StatusNotFound)
+		return
+	}
+	if !r.URL.Query().Has("article") {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
@@ -396,6 +421,7 @@ func modifyArticleHandler(w http.ResponseWriter, r *http.Request) {
 		},
 		Article: article,
 	}
+	fmt.Printf("log: data: %#v\n", data) // testing
 	err = tmpl["modifyarticle"].ExecuteTemplate(w, "base", data)
 	if err != nil {
 		log.Fatal(err)
@@ -405,6 +431,10 @@ func modifyArticleHandler(w http.ResponseWriter, r *http.Request) {
 func modifyArticleTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
 	if r.URL.Path != "/modifyarticle/treatment" {
+		errorHandler(w, r, http.StatusNotFound)
+		return
+	}
+	if !r.URL.Query().Has("article") {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
@@ -430,6 +460,7 @@ func modifyArticleTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 			Content:  r.FormValue("content"),
 		}
 		modifyArticle(newCtn)
+		fmt.Printf("log: updatedCtn: %#v\n", newCtn) // testing
 		http.Redirect(w, r, "/admin", http.StatusSeeOther)
 	}
 }
@@ -437,6 +468,10 @@ func modifyArticleTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 func deleteArticleHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
 	if r.URL.Path != "/deletearticle" {
+		errorHandler(w, r, http.StatusNotFound)
+		return
+	}
+	if !r.URL.Query().Has("article") {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
@@ -457,6 +492,7 @@ func deleteArticleHandler(w http.ResponseWriter, r *http.Request) {
 		Article: article,
 		Message: "<div class=\"message\">Do you really want to delete that article ?</div>",
 	}
+	fmt.Printf("log: data: %#v\n", data) // testing
 	err = tmpl["deletearticle"].ExecuteTemplate(w, "base", data)
 	if err != nil {
 		log.Fatal(err)
@@ -466,6 +502,10 @@ func deleteArticleHandler(w http.ResponseWriter, r *http.Request) {
 func deleteArticleTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
 	if r.URL.Path != "/deletearticle/treatment" {
+		errorHandler(w, r, http.StatusNotFound)
+		return
+	}
+	if !r.URL.Query().Has("article") {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
@@ -490,6 +530,7 @@ func aboutHandler(w http.ResponseWriter, r *http.Request) {
 			StaticPath: "static/",
 		},
 	}
+	fmt.Printf("log: data: %#v\n", data) // testing
 	err := tmpl["about"].ExecuteTemplate(w, "base", data)
 	if err != nil {
 		log.Fatal(err)
@@ -508,6 +549,7 @@ func errorHandler(w http.ResponseWriter, r *http.Request, status int) {
 				StaticPath: "static/",
 			},
 		}
+		fmt.Printf("log: data: %#v\n", data) // testing
 		err := tmpl["error404"].ExecuteTemplate(w, "base", data)
 		if err != nil {
 			log.Fatal(err)

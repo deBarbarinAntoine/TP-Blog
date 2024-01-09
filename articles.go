@@ -157,51 +157,44 @@ func modifyArticle(updatedArticle Article) {
 }
 
 func formatArticle(article Article) string {
-	var noMatch bool
+	var Match bool = true
 	var ctn string
 	title3 := regexp.MustCompile("### .+\\n")
 	titles3 := title3.FindAllString(article.Content, -1)
 	if len(titles3) == 0 {
-		noMatch = true
+		Match = false
 	}
-	if !noMatch {
-		noMatch = false
+	if Match {
 		for i, title := range titles3 {
-			openMark := regexp.MustCompile("### ")
-			endMark := regexp.MustCompile("\\n")
-			title = openMark.ReplaceAllString(title, "<div class=\"ctn-title3\">")
-			title = endMark.ReplaceAllString(title, "</div>\n")
-			ctn = strings.Replace(article.Content, titles3[i], title, -1)
+			title = strings.Replace(title, "### ", "<div class=\"ctn-title3\">", 1)
+			title = strings.Replace(title, "\n", "</div>\n", 1)
+			ctn = strings.Replace(article.Content, titles3[i], title, 1)
 		}
 	}
+	Match = true
 	title2 := regexp.MustCompile("## .+\\n")
 	titles2 := title2.FindAllString(article.Content, -1)
 	if len(titles2) == 0 {
-		noMatch = true
+		Match = false
 	}
-	if !noMatch {
-		noMatch = false
+	if Match {
 		for i, title := range titles2 {
-			openMark := regexp.MustCompile("## ")
-			endMark := regexp.MustCompile("\\n")
-			title = openMark.ReplaceAllString(title, "<div class=\"ctn-title2\">")
-			title = endMark.ReplaceAllString(title, "</div>\n")
-			ctn = strings.Replace(article.Content, titles2[i], title, -1)
+			title = strings.Replace(title, "## ", "<div class=\"ctn-title2\">", 1)
+			title = strings.Replace(title, "\n", "</div>\n", 1)
+			ctn = strings.Replace(article.Content, titles2[i], title, 1)
 		}
 	}
+	Match = true
 	title1 := regexp.MustCompile("# .+\\n")
 	titles1 := title1.FindAllString(article.Content, -1)
 	if len(titles1) == 0 {
-		noMatch = true
+		Match = false
 	}
-	if !noMatch {
-		noMatch = false
+	if Match {
 		for i, title := range titles1 {
-			openMark := regexp.MustCompile("# ")
-			endMark := regexp.MustCompile("\\n")
-			title = openMark.ReplaceAllString(title, "<div class=\"ctn-title1\">")
-			title = endMark.ReplaceAllString(title, "</div>\n")
-			ctn = strings.Replace(article.Content, titles1[i], title, -1)
+			title = strings.Replace(title, "# ", "<div class=\"ctn-title1\">", 1)
+			title = strings.Replace(title, "\n", "</div>\n", 1)
+			ctn = strings.Replace(article.Content, titles1[i], title, 1)
 		}
 	}
 	return ctn
