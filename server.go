@@ -48,8 +48,8 @@ func runServer() {
 func Run() {
 	tmplPath := path + "templates/"
 	tmpl["index"] = template.Must(template.ParseFiles(tmplPath+"index.gohtml", tmplPath+"base.gohtml"))
-	tmpl["albumJul"] = template.Must(template.ParseFiles(tmplPath+"albumJul.gohtml", tmplPath+"base.gohtml"))
-	tmpl["trackSdm"] = template.Must(template.ParseFiles(tmplPath+"trackSdm.gohtml", tmplPath+"base.gohtml"))
+	tmpl["albumJul"] = template.Must(template.ParseFiles(tmplPath+"articles.gohtml", tmplPath+"base.gohtml"))
+	tmpl["trackSdm"] = template.Must(template.ParseFiles(tmplPath+"category.gohtml", tmplPath+"base.gohtml"))
 	routes()
 	fileServer()
 	runServer()

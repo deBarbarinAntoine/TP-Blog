@@ -2,31 +2,24 @@
 
 {{define "title"}}<title>{{.Base.Title}}</title>{{end}}
 
-{{define "home-line-class"}}{{.Base.Line}}{{end}}
+{{define "home-line-class"}}{{end}}
 {{define "about-line-class"}}{{end}}
 {{define "album-line-class"}}{{end}}
-{{define "track-line-class"}}{{end}}
+{{define "track-line-class"}}{{.Base.Line}}{{end}}
 
 {{define "body"}}
     <div>
-        <h1>
-            SportPulse
-        </h1>
+        <h1> Vous etes dans la catégorie ...</h1>
     </div>
+        {{range $index, $element}}
         <div>
-            <div>
-                <p>Esport</p>
-            </div>
+            <h2>
+                Titre article:
+            </h2>
             <div>
                 <p>
-                    Formule 1
+                    mini description de l'article ...
                 </p>
             </div>
-            <div>
-                <p>Football</p>
-            </div>
         </div>
-
-
-
 {{end}}
