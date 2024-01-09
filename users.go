@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-var fileName = "../Files/accounts.thorg"
+var fileName = path + "accounts.thorg"
 
 type UserNotFoundError struct{}
 
