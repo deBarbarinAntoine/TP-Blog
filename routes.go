@@ -11,6 +11,7 @@ func routes() {
 	http.HandleFunc("/search", searchHandler)     // use query params: ?q=<search>
 	http.HandleFunc("/login", loginHandler)
 	http.HandleFunc("/login/treatment", loginTreatmentHandler)
+	http.HandleFunc("/logout", logoutHandler)
 	http.HandleFunc("/createuser", createUserHandler)
 	http.HandleFunc("/createuser/treatment", createUserTreatmentHandler)
 	http.HandleFunc("/modifyuser", modifyUserHandler)

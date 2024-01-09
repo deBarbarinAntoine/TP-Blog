@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strconv"
+	"time"
 )
 
 var mySession Session
@@ -86,10 +88,27 @@ func loginTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if login(r.FormValue("username"), r.FormValue("password")) {
+		fmt.Println("log: loginTreatment() correct login: welcome ", r.FormValue("username"), "!")
 		http.Redirect(w, r, "/admin", http.StatusSeeOther)
 	} else {
+		fmt.Println("log: loginTreatment() incorrect login!")
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 	}
+}
+
+func logoutHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // for testing purposes
+	if r.URL.Path != "/logout" {
+		errorHandler(w, r, http.StatusNotFound)
+		return
+	}
+	w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
+	w.Header().Set("Pragma", "no-cache")
+	w.Header().Set("Expires", "0")
+	fmt.Println("log: logout() passing through!")
+	mySession.Close()
+	fmt.Printf("log logout() session cleared: %#v\n", mySession)
+	http.Redirect(w, r, "/index", http.StatusMovedPermanently)
 }
 
 func createUserHandler(w http.ResponseWriter, r *http.Request) {
@@ -110,7 +129,20 @@ func createUserTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
-	// creating user
+	var user = User{
+		Name:     r.FormValue("username"),
+		Password: r.FormValue("password"),
+	}
+	if checkUsername(user.Name) {
+		if len(user.Password) > 5 {
+			user.addUser()
+			http.Redirect(w, r, "/user/login", http.StatusMovedPermanently)
+		} else {
+			http.Redirect(w, r, "/user/create", http.StatusMovedPermanently)
+		}
+	} else {
+		http.Redirect(w, r, "/user/create", http.StatusMovedPermanently)
+	}
 }
 
 func modifyUserHandler(w http.ResponseWriter, r *http.Request) {
@@ -131,7 +163,35 @@ func modifyUserTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
-	// modifying user
+	if r.Method == http.MethodPost {
+		fmt.Println("log: modifyUserTreatment() update user")
+		username := r.FormValue("username")
+		newPassword := r.FormValue("newPassword")
+		if (checkUsername(username) || username == mySession.MyUser.Name) && mySession.MyUser.Password == r.FormValue("password") && len(newPassword) > 5 {
+			fmt.Println("log: modifyUserTreatment() Previous name: ", mySession.MyUser.Name)
+			fmt.Println("log: modifyUserTreatment() Previous password: ", mySession.MyUser.Password)
+			fmt.Println()
+			newUser := User{Name: username, Password: newPassword}
+			err := mySession.MyUser.modifyUser(newUser)
+			if err != nil {
+				log.Fatal(err)
+			}
+			fmt.Println("log: modifyUserTreatment() New name: ", mySession.MyUser.Name)
+			fmt.Println("log: modifyUserTreatment() New password: ", mySession.MyUser.Password)
+			fmt.Println()
+			http.Redirect(w, r, "/admin", http.StatusMovedPermanently)
+			return
+		} else {
+			//mySession.MyGameData.Message = "Données invalides !"
+			//mySession.MyGameData.MessageClass = "message red"
+			fmt.Println("log: modifyUserTreatment() error: Invalid data!")
+			http.Redirect(w, r, "/modifyuser", http.StatusSeeOther)
+			return
+		}
+	} else {
+		http.Redirect(w, r, "/modifyuser", http.StatusMovedPermanently)
+		return
+	}
 }
 
 func adminHandler(w http.ResponseWriter, r *http.Request) {
@@ -164,7 +224,21 @@ func addArticleTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
-	// addArticle
+	articles, err := RetrieveArticles()
+	if err != nil {
+		log.Fatal("log: RetrieveArticles() error!\n", err)
+	}
+	id := len(articles) + 1
+	newCtn := Article{
+		Id:       id,
+		Category: r.FormValue("category"),
+		Title:    r.FormValue("title"),
+		Author:   mySession.MyUser.Name,
+		Date:     fmt.Sprint(time.DateOnly),
+		Content:  r.FormValue("content"),
+	}
+	addArticle(newCtn)
+	http.Redirect(w, r, "/admin", http.StatusSeeOther)
 }
 
 func modifyArticleHandler(w http.ResponseWriter, r *http.Request) {
@@ -185,7 +259,20 @@ func modifyArticleTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
-	// modifyArticle
+	id, err := strconv.Atoi(r.FormValue("id"))
+	if err != nil {
+		log.Fatal("log: modifyArticleTreatment() Atoi error!\n", err)
+	}
+	newCtn := Article{
+		Id:       id,
+		Category: r.FormValue("category"),
+		Title:    r.FormValue("title"),
+		Author:   r.FormValue("author"),
+		Date:     fmt.Sprint(time.DateOnly),
+		Content:  r.FormValue("content"),
+	}
+	modifyArticle(newCtn)
+	http.Redirect(w, r, "/admin", http.StatusSeeOther)
 }
 
 func deleteArticleHandler(w http.ResponseWriter, r *http.Request) {
@@ -206,7 +293,11 @@ func deleteArticleTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
-	// deleteArticle
+	id, err := strconv.Atoi(r.FormValue("id"))
+	if err != nil {
+		log.Fatal("log: modifyArticleTreatment() Atoi error!\n", err)
+	}
+	deleteArticle(id)
 }
 
 func aboutHandler(w http.ResponseWriter, r *http.Request) {
