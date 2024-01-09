@@ -39,7 +39,19 @@ func categoryHandler(w http.ResponseWriter, r *http.Request) {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
-	err := tmpl["category"].ExecuteTemplate(w, "base", nil)
+	category := r.URL.Query().Get("category")
+	data := struct {
+		Base     BaseData
+		category string
+	}{
+		Base: BaseData{
+			Title:      category,
+			StaticPath: "static/",
+			Line:       "",
+		},
+		category: category,
+	}
+	err := tmpl["category"].ExecuteTemplate(w, "base", data)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -51,7 +63,19 @@ func articleHandler(w http.ResponseWriter, r *http.Request) {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
-	err := tmpl["article"].ExecuteTemplate(w, "base", nil)
+	article := r.URL.Query().Get("article")
+	data := struct {
+		Base    BaseData
+		Article string
+	}{
+		Base: BaseData{
+			Title:      article,
+			StaticPath: "static/",
+			Line:       "",
+		},
+		Article: article,
+	}
+	err := tmpl["article"].ExecuteTemplate(w, "base", data)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -63,7 +87,19 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
-	err := tmpl["search"].ExecuteTemplate(w, "base", nil)
+	articles := searchArticle(r.URL.Query().Get("q"))
+	data := struct {
+		Base     BaseData
+		Articles []Article
+	}{
+		Base: BaseData{
+			Title:      "Research",
+			StaticPath: "static/",
+			Line:       "",
+		},
+		Articles: articles,
+	}
+	err := tmpl["search"].ExecuteTemplate(w, "base", data)
 	if err != nil {
 		log.Fatal(err)
 	}
