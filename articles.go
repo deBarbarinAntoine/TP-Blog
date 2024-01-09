@@ -37,7 +37,7 @@ func searchArticle(search string) []Article {
 	}
 
 	for _, article := range articles {
-		if strings.Contains(article.Title, search) {
+		if strings.Contains(strings.ToLower(article.Title), strings.ToLower(search)) {
 			result = append(result, article)
 		}
 	}
