@@ -9,36 +9,28 @@
 </head>
 <body>
     <header>
-        <div class="logo">
-            <img src="{{template "staticPath" .}}img/thorgify-logo.png" alt="Thorgify-logo"/>
-            <span>Thorgify</span>
+        <div class="fixed">
+            <div class="header">
+                <div class="header-option">
+                    <div class="nav">
+                        <a href="">Esport</a>
+                        <a href="">F1</a>
+                        <a href="">Foot</a>
+                    </div>
+                    <div class="log">
+                        <a href=""><button>Login</button></a>
+                        <a href=""><button>Sign up</button></a>
+                    </div>
+                    <form action="/votre-page-de-recherche" method="get">
+                        <div class="try">
+                            <input id="bar" type="text" name="q" placeholder=" Type...">
+                            <button type="submit"><box-icon id="icon" name='search-alt-2'></box-icon></button>
+                        </div>
+                    </form>
+                </div>
+                <img id="logo" src="logo_detoure.png" alt="">
+            </div>
         </div>
-        <nav>
-            <div class="navDiv">
-                <div class="navLink">
-                    <a href="/">Accueil</a>
-                </div>
-                <div class="line {{template "home-line-class" .}}"></div>
-            </div>
-            <div class="navDiv">
-                <div class="navLink">
-                    <a href="https://github.com/deBarbarinAntoine/TP-API-Spotify">À propos</a>
-                </div>
-                <div class="line {{template "about-line-class" .}}"></div>
-            </div>
-            <div class="navDiv">
-                <div class="navLink">
-                    <a href="/album/jul">Albums</a>
-                </div>
-                <div class="line {{template "album-line-class" .}}"></div>
-            </div>
-            <div class="navDiv">
-                <div class="navLink">
-                    <a href="/track/sdm">Morceaux</a>
-                </div>
-                <div class="line {{template "track-line-class" .}}"></div>
-            </div>
-        </nav>
     </header>
 
     <div class="ctn">
@@ -49,5 +41,6 @@
 
     </footer>
 </body>
+<script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 </html>
 {{end}}
