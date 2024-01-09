@@ -97,6 +97,20 @@ func selectCategory(category string) []Article {
 	return selectArticles
 }
 
+func selectArticle(id int) Article {
+	var article Article
+	articles, err := RetrieveArticles()
+	if err != nil {
+		log.Fatal("log: RetrieveArticles() error!\n", err)
+	}
+	for _, singleArticle := range articles {
+		if singleArticle.Id == id {
+			article = singleArticle
+		}
+	}
+	return article
+}
+
 func randomArticles() []Article {
 	articles, err := RetrieveArticles()
 	if err != nil {

@@ -40,16 +40,17 @@ func categoryHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	category := r.URL.Query().Get("category")
+	articles := selectCategory(category)
 	data := struct {
 		Base     BaseData
-		category string
+		Category []Article
 	}{
 		Base: BaseData{
 			Title:      category,
 			StaticPath: "static/",
 			Line:       "",
 		},
-		category: category,
+		Category: articles,
 	}
 	err := tmpl["category"].ExecuteTemplate(w, "base", data)
 	if err != nil {
@@ -63,19 +64,24 @@ func articleHandler(w http.ResponseWriter, r *http.Request) {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
-	article := r.URL.Query().Get("article")
+	idString := r.URL.Query().Get("article")
+	id, err := strconv.Atoi(idString)
+	if err != nil {
+		log.Fatal("log: articleHandler() strconv.Atoi error!\n", err)
+	}
+	article := selectArticle(id)
 	data := struct {
 		Base    BaseData
-		Article string
+		Article Article
 	}{
 		Base: BaseData{
-			Title:      article,
+			Title:      article.Title,
 			StaticPath: "static/",
 			Line:       "",
 		},
 		Article: article,
 	}
-	err := tmpl["article"].ExecuteTemplate(w, "base", data)
+	err = tmpl["article"].ExecuteTemplate(w, "base", data)
 	if err != nil {
 		log.Fatal(err)
 	}
