@@ -79,6 +79,61 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func loginTreatmentHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // for testing purposes
+	if r.URL.Path != "/login/treatment" {
+		errorHandler(w, r, http.StatusNotFound)
+		return
+	}
+	if login(r.FormValue("username"), r.FormValue("password")) {
+		http.Redirect(w, r, "/admin", http.StatusSeeOther)
+	} else {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+	}
+}
+
+func createUserHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // for testing purposes
+	if r.URL.Path != "/createuser" {
+		errorHandler(w, r, http.StatusNotFound)
+		return
+	}
+	err := tmpl["createuser"].ExecuteTemplate(w, "base", nil)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+func createUserTreatmentHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // for testing purposes
+	if r.URL.Path != "/createuser/treatment" {
+		errorHandler(w, r, http.StatusNotFound)
+		return
+	}
+	// creating user
+}
+
+func modifyUserHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // for testing purposes
+	if r.URL.Path != "/modifyuser" {
+		errorHandler(w, r, http.StatusNotFound)
+		return
+	}
+	err := tmpl["modifyuser"].ExecuteTemplate(w, "base", nil)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+func modifyUserTreatmentHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // for testing purposes
+	if r.URL.Path != "/modifyuser/treatment" {
+		errorHandler(w, r, http.StatusNotFound)
+		return
+	}
+	// modifying user
+}
+
 func adminHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // for testing purposes
 	if r.URL.Path != "/admin" {
@@ -109,7 +164,7 @@ func addArticleTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
-
+	// addArticle
 }
 
 func modifyArticleHandler(w http.ResponseWriter, r *http.Request) {
@@ -130,7 +185,28 @@ func modifyArticleTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
+	// modifyArticle
+}
 
+func deleteArticleHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // for testing purposes
+	if r.URL.Path != "/deletearticle" {
+		errorHandler(w, r, http.StatusNotFound)
+		return
+	}
+	err := tmpl["deletearticle"].ExecuteTemplate(w, "base", nil)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+func deleteArticleTreatmentHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // for testing purposes
+	if r.URL.Path != "/deletearticle/treatment" {
+		errorHandler(w, r, http.StatusNotFound)
+		return
+	}
+	// deleteArticle
 }
 
 func aboutHandler(w http.ResponseWriter, r *http.Request) {

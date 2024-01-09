@@ -10,10 +10,17 @@ func routes() {
 	http.HandleFunc("/article", articleHandler)   // use query params: ?id=<article-id>
 	http.HandleFunc("/search", searchHandler)     // use query params: ?q=<search>
 	http.HandleFunc("/login", loginHandler)
+	http.HandleFunc("/login/treatment", loginTreatmentHandler)
+	http.HandleFunc("/createuser", createUserHandler)
+	http.HandleFunc("/createuser/treatment", createUserTreatmentHandler)
+	http.HandleFunc("/modifyuser", modifyUserHandler)
+	http.HandleFunc("/modifyuser/treatment", modifyUserTreatmentHandler)
 	http.HandleFunc("/admin", adminHandler)
 	http.HandleFunc("/addarticle", addArticleHandler)
 	http.HandleFunc("/addarticle/treatment", addArticleTreatmentHandler)
 	http.HandleFunc("/modifyarticle", modifyArticleHandler) // use query params: ?id=<article-id>
 	http.HandleFunc("/modifyarticle/treatment", modifyArticleTreatmentHandler)
+	http.HandleFunc("/deletearticle", deleteArticleHandler) // use query params: ?id=<article-id>
+	http.HandleFunc("/deletearticle/treatment", deleteArticleTreatmentHandler)
 	http.HandleFunc("/about", aboutHandler)
 }
