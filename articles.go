@@ -60,8 +60,25 @@ func changeArticles(articles []Article) {
 	}
 }
 
+func getIdNewArticle() int {
+	articles, err := RetrieveArticles()
+	if err != nil {
+		log.Fatal("log: RetrieveArticles() error!\n", err)
+	}
+	var id int
+	var idFound bool
+	for id = 1; !idFound; id++ {
+		idFound = true
+		for _, article := range articles {
+			if article.Id == id {
+				idFound = false
+			}
+		}
+	}
+	return id
+}
+
 func addArticle(newCtn Article) {
-	// Don't forget to add automatically the article id in the addArticle Handler!
 	articles, err := RetrieveArticles()
 	if err != nil {
 		log.Fatal("log: RetrieveArticles() error!\n", err)
@@ -108,6 +125,7 @@ func selectArticle(id int) Article {
 			article = singleArticle
 		}
 	}
+	// ToDo: Handle an empty article
 	return article
 }
 
