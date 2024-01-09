@@ -17,10 +17,13 @@ type User struct {
 }
 
 type Article struct {
-	Id       int    `json:"id"`
-	Category string `json:"category"`
-	Title    string `json:"title"`
-	Author   string `json:"author"`
-	Date     string `json:"date"`
-	Content  string `json:"content"`
+	Id           int    `json:"id"`
+	Category     string `json:"category"`
+	Title        string `json:"title"`
+	Author       string `json:"author"`
+	Date         string `json:"date"`
+	BigImg       string `json:"big_img"`
+	SmallImg     string `json:"small_img"`
+	Introduction string `json:"introduction"`
+	Content      string `json:"content"`
 }
