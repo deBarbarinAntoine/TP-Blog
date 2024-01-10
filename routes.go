@@ -9,12 +9,12 @@ func routes() {
 	http.HandleFunc("/category", categoryHandler) // use query params: ?category=<category-name>
 	http.HandleFunc("/article", articleHandler)   // use query params: ?article=<article-id>
 	http.HandleFunc("/search", searchHandler)     // use query params: ?q=<search>
-	http.HandleFunc("/login", loginHandler)
+	http.HandleFunc("/login", loginHandler)       // use query params: ?status=error
 	http.HandleFunc("/login/treatment", loginTreatmentHandler)
 	http.HandleFunc("/logout", logoutHandler)
-	http.HandleFunc("/createuser", createUserHandler)
+	http.HandleFunc("/createuser", createUserHandler) // use query params: ?<input>=error (input: "pass" or "user")
 	http.HandleFunc("/createuser/treatment", createUserTreatmentHandler)
-	http.HandleFunc("/modifyuser", modifyUserHandler)
+	http.HandleFunc("/modifyuser", modifyUserHandler) // use query params: ?status=error
 	http.HandleFunc("/modifyuser/treatment", modifyUserTreatmentHandler)
 	http.HandleFunc("/admin", adminHandler)
 	http.HandleFunc("/addarticle", addArticleHandler)

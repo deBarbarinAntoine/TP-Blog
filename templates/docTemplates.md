@@ -60,6 +60,17 @@ data := struct {
         Title      string
         StaticPath string
     }
+    MainArticle Article {
+        Id           int
+        Category     string
+        Title        string
+        Author       string
+        Date         string
+        BigImg       string
+        SmallImg     string
+        Introduction string
+        Content      string
+    }
     Category []Article {
         Id           int
         Category     string
