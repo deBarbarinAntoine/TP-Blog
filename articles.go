@@ -149,7 +149,6 @@ func selectArticle(id int) Article {
 			article = singleArticle
 		}
 	}
-	// ToDo: Handle an empty article
 	return article
 }
 

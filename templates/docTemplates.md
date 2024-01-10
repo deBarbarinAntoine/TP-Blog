@@ -149,7 +149,7 @@ data := struct {
         StaticPath string
     }
     Message string // message if there is a problem logging (username or password): <div class="message">Wrong username or password!</div>
-}
+}                  // also contains a message when redirected from restricted website area without login.
 ```
 [↑ Return to table of content](#templates)
 

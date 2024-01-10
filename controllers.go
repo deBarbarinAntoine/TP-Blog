@@ -165,7 +165,7 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 //
 // takes the User info to send it to loginTreatmentHandler via Post Method.
 //
-// Optional query params: ?status=error
+// Optional query params: ?status=<error>	(error: "error" or "restricted")
 func loginHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
 	if r.URL.Path != "/login" {
@@ -173,8 +173,11 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	var message string
-	if r.URL.Query().Get("status") == "error" {
+	switch r.URL.Query().Get("status") {
+	case "error":
 		message = "<div class=\"message\">Wrong username or password!</div>"
+	case "restricted":
+		message = "<div class=\"message\">You need to sign in to access to this resource!</div>"
 	}
 	data := struct {
 		Base    BaseData
