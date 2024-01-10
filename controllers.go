@@ -307,7 +307,7 @@ func modifyUserHandler(w http.ResponseWriter, r *http.Request) {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
-	// todo: security check
+	adminGuard(w, r)
 	var message string
 	if r.URL.Query().Get("status") == "error" {
 		message = "<div class=\"message\">Invalid data!</div>"
@@ -340,7 +340,7 @@ func modifyUserTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
-	// todo: security check
+	adminGuard(w, r)
 	if r.Method == http.MethodPost {
 		fmt.Println("log: modifyUserTreatment() update user")
 		username := r.FormValue("username")
@@ -380,11 +380,12 @@ func adminHandler(w http.ResponseWriter, r *http.Request) {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
-	articles, err := RetrieveArticles()
+	adminGuard(w, r)
+	articles, err := retrieveArticles()
 	if err != nil {
-		log.Fatal("log: RetrieveArticles() error!\n", err)
+		log.Fatal("log: retrieveArticles() error!\n", err)
 	}
-	// todo: security check
+	adminGuard(w, r)
 	data := struct {
 		Base     BaseData
 		Articles []Article
@@ -413,7 +414,7 @@ func addArticleHandler(w http.ResponseWriter, r *http.Request) {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
-	// todo: security check
+	adminGuard(w, r)
 	data := struct {
 		Base       BaseData
 		User       User
@@ -454,7 +455,7 @@ func addArticleTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
-	// todo: security check
+	adminGuard(w, r)
 	newCtn := Article{
 		Id:       getIdNewArticle(),
 		Category: r.FormValue("category"),
@@ -480,7 +481,7 @@ func modifyArticleHandler(w http.ResponseWriter, r *http.Request) {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
-	// todo: security check
+	adminGuard(w, r)
 	if !r.URL.Query().Has("article") {
 		errorHandler(w, r, http.StatusNotFound)
 		return
@@ -519,7 +520,7 @@ func modifyArticleTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
-	// todo: security check
+	adminGuard(w, r)
 	if !r.URL.Query().Has("article") {
 		errorHandler(w, r, http.StatusNotFound)
 		return
@@ -551,7 +552,7 @@ func modifyArticleTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//	modifyArticleTreatmentHandler
+//	deleteArticleHandler
 //
 // select the Article which id is indicated in the query params and shows it in the form
 // to send it to deleteArticleTreatmentHandler via Post Method.
@@ -563,7 +564,7 @@ func deleteArticleHandler(w http.ResponseWriter, r *http.Request) {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
-	// todo: security check
+	adminGuard(w, r)
 	if !r.URL.Query().Has("article") {
 		errorHandler(w, r, http.StatusNotFound)
 		return
@@ -592,13 +593,19 @@ func deleteArticleHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+//	deleteArticleTreatmentHandler
+//
+// runs deleteArticle to remove the Article which id is indicated in the query params.
+// It then redirects to adminHandler.
+//
+// Query params: ?article=<article-id>
 func deleteArticleTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
 	if r.URL.Path != "/deletearticle/treatment" {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
-	// todo: security check
+	adminGuard(w, r)
 	if !r.URL.Query().Has("article") {
 		errorHandler(w, r, http.StatusNotFound)
 		return
@@ -608,8 +615,12 @@ func deleteArticleTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 		log.Fatal("log: modifyArticleTreatment() Atoi error!\n", err)
 	}
 	deleteArticle(id)
+	http.Redirect(w, r, "/admin", http.StatusSeeOther)
 }
 
+//	aboutHandler
+//
+// shows the website map and info and all Terms and Conditions.
 func aboutHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
 	if r.URL.Path != "/about" {
@@ -631,6 +642,10 @@ func aboutHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+//	errorHandler
+//
+// shows the custom error 404 page.
+// It is called whenever the url is unknown or incorrect.
 func errorHandler(w http.ResponseWriter, r *http.Request, status int) {
 	w.WriteHeader(status)
 	fmt.Printf("log: status: %#v\n", status) // testing
@@ -648,5 +663,17 @@ func errorHandler(w http.ResponseWriter, r *http.Request, status int) {
 		if err != nil {
 			log.Fatal(err)
 		}
+	}
+}
+
+//	adminGuard
+//
+// checks if Session.isOpen to access the restricted area of the website.
+// Else, it redirects to loginHandler with ?status=restricted query params.
+func adminGuard(w http.ResponseWriter, r *http.Request) {
+	if mySession.isOpen {
+		return
+	} else {
+		http.Redirect(w, r, "/login?status=restricted", http.StatusSeeOther)
 	}
 }

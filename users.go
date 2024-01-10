@@ -96,7 +96,7 @@ func login(username, password string) bool {
 	return false
 }
 
-// addUser creates a new user and writes its informations in the accounts file.
+// addUser creates a new user and writes its information in the accounts file.
 func (user *User) addUser() {
 
 	newEntry, err := json.Marshal(user)

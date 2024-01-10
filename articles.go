@@ -11,7 +11,11 @@ import (
 
 var jsonfile = path + "content/articles.json"
 
-func RetrieveArticles() ([]Article, error) {
+//	retrieveArticles
+//
+// retrieves all Article present in articles.json and stores them in a slice of Article.
+// It returns the slice of Article and an error.
+func retrieveArticles() ([]Article, error) {
 	var articles []Article
 
 	data, err := os.ReadFile(jsonfile)
@@ -28,12 +32,15 @@ func RetrieveArticles() ([]Article, error) {
 	return articles, nil
 }
 
+//	searchArticles
+//
+// retrieves all Article in which Article.Title contains `search` and returns them in a slice.
 func searchArticle(search string) []Article {
 	var result []Article
 
-	articles, err := RetrieveArticles()
+	articles, err := retrieveArticles()
 	if err != nil {
-		log.Fatal("log: RetrieveArticles() error!\n", err)
+		log.Fatal("log: retrieveArticles() error!\n", err)
 	}
 
 	for _, article := range articles {
@@ -49,6 +56,9 @@ func searchArticle(search string) []Article {
 	return result
 }
 
+//	changeArticles
+//
+// overwrites articles.json with `articles` in json format.
 func changeArticles(articles []Article) {
 	data, errJSON := json.Marshal(articles)
 	if errJSON != nil {
@@ -60,10 +70,13 @@ func changeArticles(articles []Article) {
 	}
 }
 
+//	getIdNewArticle
+//
+// returns first unused id in articles.json.
 func getIdNewArticle() int {
-	articles, err := RetrieveArticles()
+	articles, err := retrieveArticles()
 	if err != nil {
-		log.Fatal("log: RetrieveArticles() error!\n", err)
+		log.Fatal("log: retrieveArticles() error!\n", err)
 	}
 	var id int
 	var idFound bool
@@ -78,19 +91,25 @@ func getIdNewArticle() int {
 	return id
 }
 
+//	addArticle
+//
+// adds the Article `newCtn` to articles.json.
 func addArticle(newCtn Article) {
-	articles, err := RetrieveArticles()
+	articles, err := retrieveArticles()
 	if err != nil {
-		log.Fatal("log: RetrieveArticles() error!\n", err)
+		log.Fatal("log: retrieveArticles() error!\n", err)
 	}
 	articles = append(articles, newCtn)
 	changeArticles(articles)
 }
 
+//	deleteArticle
+//
+// remove the Article which Article.Id is sent in argument from articles.json.
 func deleteArticle(id int) {
-	articles, err := RetrieveArticles()
+	articles, err := retrieveArticles()
 	if err != nil {
-		log.Fatal("log: RetrieveArticles() error!\n", err)
+		log.Fatal("log: retrieveArticles() error!\n", err)
 	}
 	for i, article := range articles {
 		if article.Id == id {
@@ -100,11 +119,14 @@ func deleteArticle(id int) {
 	changeArticles(articles)
 }
 
+//	selectCategory
+//
+// returns all Article which Article.Category matches the `category` argument.
 func selectCategory(category string) []Article {
 	var selectArticles []Article
-	articles, err := RetrieveArticles()
+	articles, err := retrieveArticles()
 	if err != nil {
-		log.Fatal("log: RetrieveArticles() error!\n", err)
+		log.Fatal("log: retrieveArticles() error!\n", err)
 	}
 	for _, article := range articles {
 		if article.Category == category {
@@ -114,11 +136,13 @@ func selectCategory(category string) []Article {
 	return selectArticles
 }
 
+// selectArticle
+// returns the Article which Article.Id matches the `id` argument.
 func selectArticle(id int) Article {
 	var article Article
-	articles, err := RetrieveArticles()
+	articles, err := retrieveArticles()
 	if err != nil {
-		log.Fatal("log: RetrieveArticles() error!\n", err)
+		log.Fatal("log: retrieveArticles() error!\n", err)
 	}
 	for _, singleArticle := range articles {
 		if singleArticle.Id == id {
@@ -129,10 +153,13 @@ func selectArticle(id int) Article {
 	return article
 }
 
+//	randomArticles
+//
+// select randomly a fixed number of Article and returns them in a slice.
 func randomArticles() []Article {
-	articles, err := RetrieveArticles()
+	articles, err := retrieveArticles()
 	if err != nil {
-		log.Fatal("log: RetrieveArticles() error!\n", err)
+		log.Fatal("log: retrieveArticles() error!\n", err)
 	}
 	if len(articles) < 12 {
 		return articles
@@ -143,10 +170,14 @@ func randomArticles() []Article {
 	return articles[:12]
 }
 
+//	modifyArticle
+//
+// modifies the Article in articles.json that matches
+// `updatedArticle`'s Id with `updatedArticle`'s content.
 func modifyArticle(updatedArticle Article) {
-	articles, err := RetrieveArticles()
+	articles, err := retrieveArticles()
 	if err != nil {
-		log.Fatal("log: RetrieveArticles() error!\n", err)
+		log.Fatal("log: retrieveArticles() error!\n", err)
 	}
 	for i, article := range articles {
 		if article.Id == updatedArticle.Id {
@@ -156,6 +187,9 @@ func modifyArticle(updatedArticle Article) {
 	changeArticles(articles)
 }
 
+//	formatArticle
+//
+// replace all # markdown title signs with html in `article`'s content and returns the formatted version.
 func formatArticle(article Article) string {
 	var Match bool = true
 	var ctn string
