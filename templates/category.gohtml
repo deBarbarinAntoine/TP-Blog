@@ -4,18 +4,37 @@
 
 
 {{define "body"}}
-    <div>
-        <h1> Vous etes dans la catégorie ...</h1>
-    </div>
-        {{range $index, $element}}
-        <div>
-            <h2>
-                Titre article:
-            </h2>
-            <div>
-                <p>
-                    mini description de l'article ...
-                </p>
+    <div class="top">
+        <div class="top-left">
+            <div class="title">
+                <h1>{{.Title}}</h1>
+            </div>
+            <div class="img-top">
+                <img src="{{.BigImg}}" alt="Grosse image d'article">
             </div>
         </div>
+        <div class="top-right">
+            <div class="title">
+                <h3></h3>
+            </div>
+            <div>
+                <p>{{.Title}}</p>
+            </div>
+            <div>
+                <p>{{.Title}}</p>
+            </div>
+            <div>
+                <p>{{.Title}}</p>
+            </div>
+        </div>
+    </div>
+    <section class="mid">
+        <div class="article">
+            {{range.Category}}
+                <img class="article-img" src="{{.SmallImg}}" alt="Petite image d'article">
+                <h3 class="title-article">{{.Title}}</h3>
+                <p class="article-info">{{.Introduction}}</p>
+            {{end}}
+        </div>
+    </section>
 {{end}}

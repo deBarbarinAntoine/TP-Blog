@@ -44,6 +44,10 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// categoryHandler:
+// fetch and show a list of all Article of the Article.Category indicated in the query params.
+//
+// query params: ?category=<category-name>
 func categoryHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
 	if r.URL.Path != "/category" {
@@ -57,14 +61,16 @@ func categoryHandler(w http.ResponseWriter, r *http.Request) {
 	category := r.URL.Query().Get("category")
 	articles := selectCategory(category)
 	data := struct {
-		Base     BaseData
-		Category []Article
+		Base        BaseData
+		MainArticle Article
+		Category    []Article
 	}{
 		Base: BaseData{
 			Title:      category,
 			StaticPath: "static/",
 		},
-		Category: articles,
+		MainArticle: articles[0],
+		Category:    articles[1:],
 	}
 	fmt.Printf("log: data: %#v\n", data) // testing
 	err := tmpl["category"].ExecuteTemplate(w, "base", data)
@@ -73,6 +79,10 @@ func categoryHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// articleHandler:
+// fetch and show a specific Article which id number is indicated in the query params.
+//
+// Query params: ?article=<article-id>
 func articleHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
 	if r.URL.Path != "/article" {
@@ -107,6 +117,10 @@ func articleHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// searchHandler:
+// fetch and show all Article which title matches the search indicated in the query params.
+//
+// Query params: ?q=<search>
 func searchHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
 	if r.URL.Path != "/search" {
@@ -144,6 +158,10 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// loginHandler:
+// takes the User info to send it to loginTreatmentHandler via Post Method.
+//
+// Optional query params: ?status=error
 func loginHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
 	if r.URL.Path != "/login" {
@@ -171,6 +189,9 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// loginTreatmentHandler:
+// checks the form values sent by loginHandler to open the session and redirect to adminHandler
+// or redirect to loginHandler with query params: ?status=error
 func loginTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
 	if r.URL.Path != "/login/treatment" {
@@ -186,6 +207,9 @@ func loginTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// logoutHandler:
+// close and clear the Session opened.
+// It also clears the cache so that the Session can be closed.
 func logoutHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
 	if r.URL.Path != "/logout" {
@@ -201,6 +225,10 @@ func logoutHandler(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/index", http.StatusMovedPermanently)
 }
 
+// createUserHandler:
+// takes the new User info to send it to createUserTreatmentHandler via Post Method.
+//
+// Optional query params: ?pass=error or ?user=error
 func createUserHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
 	if r.URL.Path != "/createuser" {
@@ -233,28 +261,37 @@ func createUserHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// createUserTreatmentHandler:
+// checks the form values sent by createUserHandler and calls User.addUser to sign up the new User.
+//
+// In case of invalid values, it redirects to createUserHandler with ?pass=error or ?user=error query params.
 func createUserTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
 	if r.URL.Path != "/createuser/treatment" {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
+	confirmPassword := r.FormValue("confirmPassword")
 	var user = User{
 		Name:     r.FormValue("username"),
 		Password: r.FormValue("password"),
 	}
 	if checkUsername(user.Name) {
-		if len(user.Password) > 5 {
+		if len(user.Password) > 5 && user.Password == confirmPassword {
 			user.addUser()
-			http.Redirect(w, r, "/user/login", http.StatusMovedPermanently)
+			http.Redirect(w, r, "/user/login", http.StatusSeeOther)
 		} else {
-			http.Redirect(w, r, "/user/create?pass=error", http.StatusMovedPermanently)
+			http.Redirect(w, r, "/user/create?pass=error", http.StatusSeeOther)
 		}
 	} else {
-		http.Redirect(w, r, "/user/create?user=error", http.StatusMovedPermanently)
+		http.Redirect(w, r, "/user/create?user=error", http.StatusSeeOther)
 	}
 }
 
+// modifyUserHandler:
+// takes the User new info to send it to modifyUserTreatmentHandler via Post Method.
+//
+// Optional query params: ?status=error
 func modifyUserHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
 	if r.URL.Path != "/modifyuser" {
@@ -262,7 +299,7 @@ func modifyUserHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	var message string
-	if r.URL.Query().Get("error") == "error" {
+	if r.URL.Query().Get("status") == "error" {
 		message = "<div class=\"message\">Invalid data!</div>"
 	}
 	data := struct {
@@ -282,6 +319,10 @@ func modifyUserHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// modifyUserTreatmentHandler:
+// checks the User new info and runs User.modifyUser with the new info.
+//
+// If new info is invalid, it redirects to modifyUserHandler with ?status=error query params.
 func modifyUserTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
 	if r.URL.Path != "/modifyuser/treatment" {
@@ -317,6 +358,9 @@ func modifyUserTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// adminHandler:
+// shows all Article and permits access to addArticleHandler, modifyArticleHandler and deleteArticleHandler
+// for each Article shown.
 func adminHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
 	if r.URL.Path != "/admin" {
