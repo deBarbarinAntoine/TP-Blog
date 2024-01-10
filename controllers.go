@@ -10,7 +10,7 @@ import (
 
 var mySession Session
 
-// Root handler redirects to index handler.
+// rootHandler redirects to index handler.
 func rootHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
 	if r.URL.Path != "/" {
@@ -44,7 +44,8 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// categoryHandler:
+//	categoryHandler
+//
 // fetch and show a list of all Article of the Article.Category indicated in the query params.
 //
 // query params: ?category=<category-name>
@@ -79,7 +80,8 @@ func categoryHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// articleHandler:
+//	articleHandler
+//
 // fetch and show a specific Article which id number is indicated in the query params.
 //
 // Query params: ?article=<article-id>
@@ -117,7 +119,8 @@ func articleHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// searchHandler:
+//	searchHandler
+//
 // fetch and show all Article which title matches the search indicated in the query params.
 //
 // Query params: ?q=<search>
@@ -158,7 +161,8 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// loginHandler:
+//	loginHandler
+//
 // takes the User info to send it to loginTreatmentHandler via Post Method.
 //
 // Optional query params: ?status=error
@@ -189,7 +193,8 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// loginTreatmentHandler:
+//	loginTreatmentHandler
+//
 // checks the form values sent by loginHandler to open the session and redirect to adminHandler
 // or redirect to loginHandler with query params: ?status=error
 func loginTreatmentHandler(w http.ResponseWriter, r *http.Request) {
@@ -207,7 +212,8 @@ func loginTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// logoutHandler:
+//	logoutHandler
+//
 // close and clear the Session opened.
 // It also clears the cache so that the Session can be closed.
 func logoutHandler(w http.ResponseWriter, r *http.Request) {
@@ -225,7 +231,8 @@ func logoutHandler(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/index", http.StatusMovedPermanently)
 }
 
-// createUserHandler:
+//	createUserHandler
+//
 // takes the new User info to send it to createUserTreatmentHandler via Post Method.
 //
 // Optional query params: ?pass=error or ?user=error
@@ -261,7 +268,8 @@ func createUserHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// createUserTreatmentHandler:
+//	createUserTreatmentHandler
+//
 // checks the form values sent by createUserHandler and calls User.addUser to sign up the new User.
 //
 // In case of invalid values, it redirects to createUserHandler with ?pass=error or ?user=error query params.
@@ -288,7 +296,8 @@ func createUserTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// modifyUserHandler:
+//	modifyUserHandler
+//
 // takes the User new info to send it to modifyUserTreatmentHandler via Post Method.
 //
 // Optional query params: ?status=error
@@ -298,6 +307,7 @@ func modifyUserHandler(w http.ResponseWriter, r *http.Request) {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
+	// todo: security check
 	var message string
 	if r.URL.Query().Get("status") == "error" {
 		message = "<div class=\"message\">Invalid data!</div>"
@@ -319,7 +329,8 @@ func modifyUserHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// modifyUserTreatmentHandler:
+//	modifyUserTreatmentHandler
+//
 // checks the User new info and runs User.modifyUser with the new info.
 //
 // If new info is invalid, it redirects to modifyUserHandler with ?status=error query params.
@@ -329,6 +340,7 @@ func modifyUserTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
+	// todo: security check
 	if r.Method == http.MethodPost {
 		fmt.Println("log: modifyUserTreatment() update user")
 		username := r.FormValue("username")
@@ -358,7 +370,8 @@ func modifyUserTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// adminHandler:
+//	adminHandler
+//
 // shows all Article and permits access to addArticleHandler, modifyArticleHandler and deleteArticleHandler
 // for each Article shown.
 func adminHandler(w http.ResponseWriter, r *http.Request) {
@@ -367,29 +380,40 @@ func adminHandler(w http.ResponseWriter, r *http.Request) {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
+	articles, err := RetrieveArticles()
+	if err != nil {
+		log.Fatal("log: RetrieveArticles() error!\n", err)
+	}
+	// todo: security check
 	data := struct {
-		Base BaseData
-		User User
+		Base     BaseData
+		Articles []Article
+		User     User
 	}{
 		Base: BaseData{
 			Title:      "Dashboard - Sport Pulse",
 			StaticPath: "static/",
 		},
-		User: mySession.MyUser,
+		Articles: articles,
+		User:     mySession.MyUser,
 	}
 	fmt.Printf("log: data: %#v\n", data) // testing
-	err := tmpl["admin"].ExecuteTemplate(w, "base", data)
+	err = tmpl["admin"].ExecuteTemplate(w, "base", data)
 	if err != nil {
 		log.Fatal(err)
 	}
 }
 
+//	addArticleHandler
+//
+// takes the new Article info to send it to addArticleTreatmentHandler via Post Method.
 func addArticleHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
 	if r.URL.Path != "/addarticle" {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
+	// todo: security check
 	data := struct {
 		Base       BaseData
 		User       User
@@ -421,12 +445,16 @@ func addArticleHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+//	addArticleTreatmentHandler
+//
+// runs addArticle to save the new Article in the json data file (articles.json).
 func addArticleTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
 	if r.URL.Path != "/addarticle/treatment" {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
+	// todo: security check
 	newCtn := Article{
 		Id:       getIdNewArticle(),
 		Category: r.FormValue("category"),
@@ -440,12 +468,19 @@ func addArticleTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/admin", http.StatusSeeOther)
 }
 
+//	modifyArticleHandler
+//
+// select and shows the Article which id is indicated in the query params
+// and takes the Article new info to send it to addArticleTreatmentHandler via Post Method.
+//
+// Query params: ?article=<article-id>
 func modifyArticleHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
 	if r.URL.Path != "/modifyarticle" {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
+	// todo: security check
 	if !r.URL.Query().Has("article") {
 		errorHandler(w, r, http.StatusNotFound)
 		return
@@ -472,12 +507,19 @@ func modifyArticleHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+//	modifyArticleTreatmentHandler
+//
+// checks if the id number in the form is the same as the one in the query params (to avoid some problems)
+// and runs modifyArticle to update the Article with the new content.
+//
+// Query params: ?article=<article-id>
 func modifyArticleTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
 	if r.URL.Path != "/modifyarticle/treatment" {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
+	// todo: security check
 	if !r.URL.Query().Has("article") {
 		errorHandler(w, r, http.StatusNotFound)
 		return
@@ -509,12 +551,19 @@ func modifyArticleTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+//	modifyArticleTreatmentHandler
+//
+// select the Article which id is indicated in the query params and shows it in the form
+// to send it to deleteArticleTreatmentHandler via Post Method.
+//
+// Query params: ?article=<article-id>
 func deleteArticleHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
 	if r.URL.Path != "/deletearticle" {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
+	// todo: security check
 	if !r.URL.Query().Has("article") {
 		errorHandler(w, r, http.StatusNotFound)
 		return
@@ -549,6 +598,7 @@ func deleteArticleTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
+	// todo: security check
 	if !r.URL.Query().Has("article") {
 		errorHandler(w, r, http.StatusNotFound)
 		return

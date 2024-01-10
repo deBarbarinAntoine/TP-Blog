@@ -193,6 +193,17 @@ data := struct {
         Title      string
         StaticPath string
     }
+    Articles []Article {
+        Id           int
+        Category     string
+        Title        string
+        Author       string
+        Date         string
+        BigImg       string
+        SmallImg     string
+        Introduction string
+        Content      string
+    }
     User User {
         Name        string
         Password    string
@@ -216,7 +227,7 @@ data := struct {
         Password    string
     }
     Categories []string     // Containing all category titles: []string{"Formule 1", "Esport", "Football"}
-        Article    Article {
+    Article    Article {
         Id           int
         Category     string
         Title        string
