@@ -61,6 +61,10 @@ func categoryHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	category := r.URL.Query().Get("category")
 	articles := selectCategory(category)
+	if len(articles) == 0 {
+		errorHandler(w, r, http.StatusNotFound)
+		return
+	}
 	data := struct {
 		Base        BaseData
 		MainArticle Article
@@ -99,7 +103,11 @@ func articleHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal("log: articleHandler() strconv.Atoi error!\n", err)
 	}
-	article := selectArticle(id)
+	article, ok := selectArticle(id)
+	if !ok {
+		errorHandler(w, r, http.StatusNotFound)
+		return
+	}
 	data := struct {
 		Base    BaseData
 		Article Article
@@ -493,7 +501,11 @@ func modifyArticleHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal("log: articleHandler() strconv.Atoi error!\n", err)
 	}
-	article := selectArticle(id)
+	article, ok := selectArticle(id)
+	if !ok {
+		errorHandler(w, r, http.StatusNotFound)
+		return
+	}
 	data := struct {
 		Base    BaseData
 		Article Article
@@ -540,7 +552,11 @@ func modifyArticleTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 	if idInQuery != idInForm {
 		http.Redirect(w, r, "/admin?status=error", http.StatusSeeOther)
 	} else {
-		article := selectArticle(idInForm)
+		article, ok := selectArticle(idInForm)
+		if !ok {
+			errorHandler(w, r, http.StatusNotFound)
+			return
+		}
 		newCtn := Article{
 			Id:       idInForm,
 			Category: r.FormValue("category"),
@@ -576,7 +592,11 @@ func deleteArticleHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal("log: articleHandler() strconv.Atoi error!\n", err)
 	}
-	article := selectArticle(id)
+	article, ok := selectArticle(id)
+	if !ok {
+		errorHandler(w, r, http.StatusNotFound)
+		return
+	}
 	data := struct {
 		Base    BaseData
 		Article Article

@@ -138,18 +138,20 @@ func selectCategory(category string) []Article {
 
 // selectArticle
 // returns the Article which Article.Id matches the `id` argument.
-func selectArticle(id int) Article {
+func selectArticle(id int) (Article, bool) {
 	var article Article
 	articles, err := retrieveArticles()
 	if err != nil {
 		log.Fatal("log: retrieveArticles() error!\n", err)
 	}
+	var ok bool
 	for _, singleArticle := range articles {
 		if singleArticle.Id == id {
+			ok = true
 			article = singleArticle
 		}
 	}
-	return article
+	return article, ok
 }
 
 //	randomArticles
