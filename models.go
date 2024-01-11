@@ -1,21 +1,24 @@
 package TPBlog
 
+// BaseData stores all basic data used in the base.gohtml template.
 type BaseData struct {
 	Title      string
 	StaticPath string
-	Line       string
 }
 
+// Session stores all User info.
 type Session struct {
 	isOpen bool
 	MyUser User
 }
 
+// User login info.
 type User struct {
 	Name     string
 	Password string
 }
 
+// Article stores all info and content used in the website.
 type Article struct {
 	Id           int    `json:"id"`
 	Category     string `json:"category"`
