@@ -22,40 +22,17 @@
 {{end}}
 
 {{define "body"}}
-    <div class="error-back">
-        <div class="error-all">
-            <div class="error-title">
-                <h1>Ouppssss</h1>
-            </div>
-
-            <div class="error-message">
-                <h2>
-                    la page que vous recherchez semble introuvable.
-                </h2>
-            </div>
-            <div>
-                <h3 class="error-code">
-                    Code d'erreur: 404
-                </h3>
-                <liste class="error-text">
-                    <div>
-                        Vous pouvez cliquer sur les onglets en haut ou voici quelques recherches utiles à la place:
-                    </div>
-                    <div>
-                        Esport
-                    </div>
-                    <div>
-                        Football
-                    </div>
-                    <div>
-                        Formule 1
-                    </div>
-
-                </liste>
-                <div class="error-image">
-                    <img src="{{.Base.StaticPath}}img/img_error_404.jpg" alt="image d'erreur">
-                </div>
-            </div>
+    <div class="error-container">
+        <div class="cont-text">
+            <h1>Oupssss</h1>
+            <h2> la page que vous recherchez semble introuvable.</h2>
+            <p>  Vous pouvez cliquer sur les onglets en haut ou voici quelques recherches utiles à la place:</p>
+            <p>Esport</p>
+            <p>Footbal</p>
+            <p>Formule 1</p>
+        </div>
+        <div class="cont-img">
+            <img src="{{.Base.StaticPath}}img/img_error_404.jpg" alt="image d'erreur">
         </div>
     </div>
 {{end}}

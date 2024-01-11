@@ -14,8 +14,9 @@
 
 {{define "body"}}
     <section>
-        <h1> voulez vous vraiment supprimer cette article</h1>
-        <a class="oui" href="/deletearticle/treatment?article={{.Article.Id}}"> Oui supprimer</a>
-        <a class="non" href="/admin">Non je ne veux pas</a>
+        <h1>Do you really want to remove the article:</h1>
+        <h3>{{.Article.Title}}</h3>
+        <a class="oui" href="/deletearticle/treatment?article={{.Article.Id}}">Remove</a>
+        <a class="non" href="/admin">Cancel</a>
     </section>
 {{end}}
