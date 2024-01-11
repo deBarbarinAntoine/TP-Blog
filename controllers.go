@@ -373,9 +373,9 @@ func modifyUserTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 	adminGuard(w, r)
 	if r.Method == http.MethodPost {
 		fmt.Println("log: modifyUserTreatment() update user")
-		username := r.FormValue("username")
+		username := r.FormValue("Username")
 		newPassword := r.FormValue("newPassword")
-		if (checkUsername(username) || username == mySession.MyUser.Name) && mySession.MyUser.Password == r.FormValue("password") && len(newPassword) > 5 {
+		if (checkUsername(username) || username == mySession.MyUser.Name) && mySession.MyUser.Password == r.FormValue("Password") && len(newPassword) > 5 {
 			fmt.Println("log: modifyUserTreatment() Previous name: ", mySession.MyUser.Name)
 			fmt.Println("log: modifyUserTreatment() Previous password: ", mySession.MyUser.Password)
 			fmt.Println()
@@ -529,16 +529,18 @@ func modifyArticleHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	data := struct {
-		Base    BaseData
-		Article Article
-		Session Session
+		Base       BaseData
+		Categories []string
+		Article    Article
+		Session    Session
 	}{
 		Base: BaseData{
 			Title:      article.Title,
 			StaticPath: "static/",
 		},
-		Article: article,
-		Session: mySession,
+		Categories: []string{"Formule 1", "Esport", "Football"},
+		Article:    article,
+		Session:    mySession,
 	}
 	fmt.Printf("log: data: %#v\n", data) // testing
 	err = tmpl["modifyarticle"].ExecuteTemplate(w, "base", data)
@@ -662,9 +664,9 @@ func deleteArticleTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
-	id, err := strconv.Atoi(r.FormValue("id"))
+	id, err := strconv.Atoi(r.URL.Query().Get("article"))
 	if err != nil {
-		log.Fatal("log: modifyArticleTreatment() Atoi error!\n", err)
+		log.Fatal("log: deleteArticleTreatment() Atoi error!\n", err)
 	}
 	deleteArticle(id)
 	http.Redirect(w, r, "/admin", http.StatusSeeOther)
