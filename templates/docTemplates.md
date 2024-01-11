@@ -145,6 +145,17 @@ data := struct {
         Introduction string
         Content      string
     }
+    Recommended []Article {
+        Id           int
+        Category     string
+        Title        string
+        Author       string
+        Date         string
+        BigImg       string
+        SmallImg     string
+        Introduction string
+        Content      string
+    }
     Session Session {
         IsOpen bool
         MyUser User {
