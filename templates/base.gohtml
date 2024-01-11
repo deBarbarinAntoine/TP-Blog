@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{{template "staticPath" .}}css/style.css">
+    {{template  "css" .}}
     {{template "title" .}}
 </head>
 <body>
@@ -18,7 +19,7 @@
                         <a href="">Foot</a>
                     </div>
                     <div class="log">
-                        <a href=""><button>Login</button></a>
+                        <a href="/login"><button>Login</button></a>
                         <a href=""><button>Sign up</button></a>
                     </div>
                     <form action="/votre-page-de-recherche" method="get">

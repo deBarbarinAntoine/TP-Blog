@@ -1,0 +1,123 @@
+.test {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.test img {
+    border-radius: 10px;
+    width: 450px;
+    height: 550px;
+    cursor: pointer;
+}
+
+
+.esport {
+    position: relative;
+    background-image: url(../img/img_index_esport.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 25vw;
+    height: 70vh;
+    border-radius: 10px;
+    cursor: pointer;
+    filter: grayscale(100%);
+}
+
+.esport p {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 600;
+    font-size: 2rem;
+    color: white;
+    user-select: none;
+
+}
+
+.f1 {
+    position: relative;
+    background-image: url(../img/img_index_f1.png);
+    background-size: cover;
+    width: 25vw;
+    height: 70vh;
+    border-radius: 10px;
+    cursor: pointer;
+    filter: grayscale(100%);
+}
+
+.f1 p {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 600;
+    font-size: 2rem;
+    color: white;
+    user-select: none;
+
+}
+
+.foot {
+    position: relative;
+    background-image: url(../img/Img_index_foot2.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 25vw;
+    height: 70vh;
+    border-radius: 10px;
+    cursor: pointer;
+    filter: grayscale(100%);
+}
+
+.foot p {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 600;
+    font-size: 2rem;
+    color: white;
+    user-select: none;
+
+}
+
+.esport:hover {
+    filter: grayscale(0%);
+}
+
+.esport:hover p {
+    font-size: 2.5rem;
+}
+
+.esport:active {
+    transform: scale(0.9);
+}
+
+.f1:hover {
+    filter: grayscale(0%);
+}
+
+.f1:hover p {
+    font-size: 2.5rem;
+}
+
+.f1:active {
+    transform: scale(0.9);
+}
+
+.foot:hover {
+    filter: grayscale(0%);
+}
+
+.foot:hover p {
+    font-size: 2.5rem;
+}
+
+.foot:active {
+    transform: scale(0.9);
+}

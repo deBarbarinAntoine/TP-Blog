@@ -1,18 +1,45 @@
 {{define "staticPath"}}{{.Base.StaticPath}}{{end}}
-
+{{define "css"}}<link rel="stylesheet" href="{{.Base.StaticPath}}css/content.css">{{end}}
 {{define "title"}}<title>{{.Base.Title}}</title>{{end}}
 
 
 {{define "body"}}
-    <div class="div-center">
-        <div>
-            <form action="/user/login/check" method="post">
-                <label for="username">Pseudo :</label>
-                <input type="text" name="username" id="username" placeholder="Pseudo" required autofocus>
-                <label for="password">Mot de passe :</label>
-                <input type="password" name="password" id="password" required>
-                <button type="submit">Valider</button>
-            </form>
-        </div>
-    </div>
+    <main class="box">
+
+        <form action="/login/treatment" class="form" method="post">
+            <h3>Login</h3>
+
+            <div class="username">
+                <input type="text" id="username" name="Username" placeholder="Username" required />
+                <ion-icon name="person"></ion-icon>
+            </div>
+
+            <div class="password">
+                <input type="password" id="password" name="Password" placeholder="Password" required />
+                <ion-icon name="lock-closed"></ion-icon>
+            </div>
+
+            <div class="buttons">
+
+                <div class="remember">
+                    <input type="checkbox" class="checkbox">
+                    <p>Remember me</p>
+                </div>
+                <p>Forgot password?</p>
+
+            </div>
+
+            <div class="btn-box">
+                <button type="submit">Login</button>
+            </div>
+
+            <div class="register">
+                <p>Don't have an account?
+                    <a href="signup.html" target="_blank">
+                        <span>Register</span>
+                    </a>
+                </p>
+            </div>
+        </form>
+    </main>
 {{end}}
