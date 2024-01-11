@@ -4,3 +4,17 @@
 
 
 {{define "body"}}
+     <h1> Votre recherche : {{.Search}} <\h1>
+    {{.Message}}
+
+    {{range .Articles}}
+    <div class="rectanglesearch"> 
+    {{.Smallimg}}
+    {{.Title}}
+    {{.Author}}
+    {{.Date}}
+    
+</div>
+{{end}}
+   
+    
