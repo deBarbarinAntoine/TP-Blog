@@ -2,6 +2,7 @@ package TPBlog
 
 import (
 	"fmt"
+	"html/template"
 	"log"
 	"net/http"
 	"strconv"
@@ -150,7 +151,7 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	search := r.URL.Query().Get("q")
 	articles := searchArticle(search)
-	var message string
+	var message template.HTML
 	if len(articles) == 0 {
 		message = "<div class=\"message\">There is no article matching your research!</div>"
 	}
@@ -158,7 +159,7 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 		Base     BaseData
 		Articles []Article
 		Search   string
-		Message  string
+		Message  template.HTML
 		Session  Session
 	}{
 		Base: BaseData{
@@ -189,7 +190,7 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	loginGuard(w, r)
-	var message string
+	var message template.HTML
 	switch r.URL.Query().Get("status") {
 	case "error":
 		message = "<div class=\"message\">Wrong username or password!</div>"
@@ -198,7 +199,7 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	data := struct {
 		Base    BaseData
-		Message string
+		Message template.HTML
 		Session Session
 	}{
 		Base: BaseData{
@@ -268,7 +269,7 @@ func createUserHandler(w http.ResponseWriter, r *http.Request) {
 	loginGuard(w, r)
 	user := r.URL.Query().Get("user")
 	pass := r.URL.Query().Get("pass")
-	var message string
+	var message template.HTML
 	if pass == "error" {
 		message = "<div class=\"message\">The password must contain at least 5 characters!</div>"
 	}
@@ -277,7 +278,7 @@ func createUserHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	data := struct {
 		Base    BaseData
-		Message string
+		Message template.HTML
 		Session Session
 	}{
 		Base: BaseData{
@@ -335,13 +336,13 @@ func modifyUserHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	adminGuard(w, r)
-	var message string
+	var message template.HTML
 	if r.URL.Query().Get("status") == "error" {
 		message = "<div class=\"message\">Invalid data!</div>"
 	}
 	data := struct {
 		Base    BaseData
-		Message string
+		Message template.HTML
 		Session Session
 	}{
 		Base: BaseData{
@@ -486,12 +487,15 @@ func addArticleTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	adminGuard(w, r)
 	newCtn := Article{
-		Id:       getIdNewArticle(),
-		Category: r.FormValue("category"),
-		Title:    r.FormValue("title"),
-		Author:   mySession.MyUser.Name,
-		Date:     time.Now().Format("02/01/2006"),
-		Content:  r.FormValue("content"),
+		Id:           getIdNewArticle(),
+		Category:     r.FormValue("category"),
+		Title:        r.FormValue("title"),
+		Author:       mySession.MyUser.Name,
+		Date:         time.Now().Format("02/01/2006"),
+		BigImg:       r.FormValue("bigImg"),
+		SmallImg:     r.FormValue("smallImg"),
+		Introduction: r.FormValue("introduction"),
+		Content:      r.FormValue("content"),
 	}
 	addArticle(newCtn)
 	fmt.Printf("log: newCtn: %#v\n", newCtn) // testing
@@ -578,12 +582,15 @@ func modifyArticleTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		newCtn := Article{
-			Id:       idInForm,
-			Category: r.FormValue("category"),
-			Title:    r.FormValue("title"),
-			Author:   article.Author,
-			Date:     time.Now().Format("02/01/2006"),
-			Content:  r.FormValue("content"),
+			Id:           idInForm,
+			Category:     r.FormValue("category"),
+			Title:        r.FormValue("title"),
+			Author:       article.Author,
+			Date:         time.Now().Format("02/01/2006"),
+			BigImg:       r.FormValue("bigImg"),
+			SmallImg:     r.FormValue("smallImg"),
+			Introduction: r.FormValue("introduction"),
+			Content:      r.FormValue("content"),
 		}
 		modifyArticle(newCtn)
 		fmt.Printf("log: updatedCtn: %#v\n", newCtn) // testing
@@ -620,7 +627,7 @@ func deleteArticleHandler(w http.ResponseWriter, r *http.Request) {
 	data := struct {
 		Base    BaseData
 		Article Article
-		Message string
+		Message template.HTML
 		Session Session
 	}{
 		Base: BaseData{

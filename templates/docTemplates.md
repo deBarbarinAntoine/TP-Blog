@@ -134,7 +134,7 @@ data := struct {
         Title      string
         StaticPath string
     }
-    Article Article {
+    Article ArticleHTML {
         Id           int
         Category     string
         Title        string
@@ -143,7 +143,7 @@ data := struct {
         BigImg       string
         SmallImg     string
         Introduction string
-        Content      string
+        Content      template.HTML
     }
     Recommended []Article {
         Id           int
@@ -188,8 +188,8 @@ data := struct {
         Introduction string
         Content      string
     }
-    Search  string  // the word searched for
-    Message string  // message if the search doesn't match any content: <div class="message">There is no article matching your research!</div> 
+    Search  string         // the word searched for
+    Message template.HTML  // message if the search doesn't match any content: <div class="message">There is no article matching your research!</div> 
     Session Session {
         IsOpen bool
         MyUser User {
@@ -213,8 +213,8 @@ data := struct {
         Title      string
         StaticPath string
     }
-    Message string      // message if there is a problem logging (username or password): <div class="message">Wrong username or password!</div>
-    Session Session {   // also contains a message when redirected from restricted website area without login.
+    Message template.HTML // message if there is a problem logging (username or password): <div class="message">Wrong username or password!</div>
+    Session Session {     // also contains a message when redirected from restricted website area without login.
         IsOpen bool
         MyUser User {
             Name string
@@ -239,7 +239,7 @@ data := struct {
         Title      string
         StaticPath string
     }
-    Message string // message if there is a problem signing up (username or password): <div class="message">Username already used!</div>
+    Message template.HTML // message if there is a problem signing up (username or password): <div class="message">Username already used!</div>
     Session Session {
         IsOpen bool
         MyUser User {
@@ -265,7 +265,7 @@ data := struct {
         Title      string
         StaticPath string
     }
-    Message string // message if there is a problem modifying user info (username or password): <div class="message">Invalid data!</div>
+    Message template.HTML // message if there is a problem modifying user info (username or password): <div class="message">Invalid data!</div>
     Session Session {
         IsOpen bool
         MyUser User {
@@ -413,7 +413,7 @@ data := struct {
         Introduction string
         Content      string
     }
-    Message string  // message asking for confirmation: <div class="message">Do you really want to delete that article ?</div>
+    Message template.HTML  // message asking for confirmation: <div class="message">Do you really want to delete that article ?</div>
     Session Session {
         IsOpen bool
         MyUser User {
