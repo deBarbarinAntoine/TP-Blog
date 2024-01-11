@@ -1,3 +1,15 @@
+body {
+    background-color: black;
+    background-image: url(../img/logo_detoure.png);
+    font-family: "Poppins", sans-serif;
+    height: 150vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    accent-color: #602bff;
+    backdrop-filter: blur(10px);
+}
+
 .test {
     display: flex;
     justify-content: center;
