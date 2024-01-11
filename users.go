@@ -89,7 +89,7 @@ func login(username, password string) bool {
 	for _, user := range users {
 		if user.Name == username && user.Password == password {
 			mySession.MyUser = user
-			mySession.isOpen = true
+			mySession.IsOpen = true
 			return true
 		}
 	}
@@ -191,7 +191,7 @@ func (user *User) modifyUser(newUserData User) error {
 
 // Close is the Session method that resets all session values.
 func (session *Session) Close() {
-	session.isOpen = false
+	session.IsOpen = false
 	session.MyUser.Name = ""
 	session.MyUser.Password = ""
 	fmt.Println("session closed")

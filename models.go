@@ -8,7 +8,7 @@ type BaseData struct {
 
 // Session stores all User info.
 type Session struct {
-	isOpen bool
+	IsOpen bool
 	MyUser User
 }
 
