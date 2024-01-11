@@ -31,12 +31,14 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 	data := struct {
 		Base     BaseData
 		Articles []Article
+		Session  Session
 	}{
 		Base: BaseData{
 			Title:      "Sport Pulse - Home",
 			StaticPath: "static/",
 		},
 		Articles: articles,
+		Session:  mySession,
 	}
 	err := tmpl["index"].ExecuteTemplate(w, "base", data)
 	if err != nil {
@@ -69,6 +71,7 @@ func categoryHandler(w http.ResponseWriter, r *http.Request) {
 		Base        BaseData
 		MainArticle Article
 		Category    []Article
+		Session     Session
 	}{
 		Base: BaseData{
 			Title:      category,
@@ -76,6 +79,7 @@ func categoryHandler(w http.ResponseWriter, r *http.Request) {
 		},
 		MainArticle: articles[0],
 		Category:    articles[1:],
+		Session:     mySession,
 	}
 	fmt.Printf("log: data: %#v\n", data) // testing
 	err := tmpl["category"].ExecuteTemplate(w, "base", data)
@@ -109,14 +113,18 @@ func articleHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	data := struct {
-		Base    BaseData
-		Article Article
+		Base        BaseData
+		Article     Article
+		Recommended []Article
+		Session     Session
 	}{
 		Base: BaseData{
 			Title:      article.Title,
 			StaticPath: "static/",
 		},
-		Article: article,
+		Article:     article,
+		Recommended: selectCategory(article.Category)[:5],
+		Session:     mySession,
 	}
 	fmt.Printf("log: data before formatArticle(): %#v\n", data) // testing
 	data.Article.Content = formatArticle(article)
@@ -153,6 +161,7 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 		Articles []Article
 		Search   string
 		Message  string
+		Session  Session
 	}{
 		Base: BaseData{
 			Title:      "Research",
@@ -161,6 +170,7 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 		Articles: articles,
 		Search:   search,
 		Message:  message,
+		Session:  mySession,
 	}
 	fmt.Printf("log: data: %#v\n", data) // testing
 	err := tmpl["search"].ExecuteTemplate(w, "base", data)
@@ -180,6 +190,7 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
+	loginGuard(w, r)
 	var message string
 	switch r.URL.Query().Get("status") {
 	case "error":
@@ -190,12 +201,14 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 	data := struct {
 		Base    BaseData
 		Message string
+		Session Session
 	}{
 		Base: BaseData{
 			Title:      "Login - Sport Pulse",
 			StaticPath: "static/",
 		},
 		Message: message,
+		Session: mySession,
 	}
 	fmt.Printf("log: data: %#v\n", data) // testing
 	err := tmpl["login"].ExecuteTemplate(w, "base", data)
@@ -214,8 +227,9 @@ func loginTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
-	if login(r.FormValue("username"), r.FormValue("password")) {
-		fmt.Println("log: loginTreatment() correct login: welcome ", r.FormValue("username"), "!")
+	loginGuard(w, r)
+	if login(r.FormValue("Username"), r.FormValue("Password")) {
+		fmt.Println("log: loginTreatment() correct login: welcome ", r.FormValue("Username"), "!")
 		http.Redirect(w, r, "/admin", http.StatusSeeOther)
 	} else {
 		fmt.Println("log: loginTreatment() incorrect login!")
@@ -239,7 +253,7 @@ func logoutHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("log: logout() passing through!")
 	mySession.Close()
 	fmt.Printf("log logout() session cleared: %#v\n", mySession)
-	http.Redirect(w, r, "/index", http.StatusMovedPermanently)
+	http.Redirect(w, r, "/index", http.StatusSeeOther)
 }
 
 //	createUserHandler
@@ -253,6 +267,7 @@ func createUserHandler(w http.ResponseWriter, r *http.Request) {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
+	loginGuard(w, r)
 	user := r.URL.Query().Get("user")
 	pass := r.URL.Query().Get("pass")
 	var message string
@@ -265,12 +280,14 @@ func createUserHandler(w http.ResponseWriter, r *http.Request) {
 	data := struct {
 		Base    BaseData
 		Message string
+		Session Session
 	}{
 		Base: BaseData{
 			Title:      "Sport Pulse - Sign Up",
 			StaticPath: "static/",
 		},
 		Message: message,
+		Session: mySession,
 	}
 	fmt.Printf("log: data: %#v\n", data) // testing
 	err := tmpl["createuser"].ExecuteTemplate(w, "base", data)
@@ -290,20 +307,21 @@ func createUserTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
-	confirmPassword := r.FormValue("confirmPassword")
+	loginGuard(w, r)
+	confirmPassword := r.FormValue("Password-check")
 	var user = User{
-		Name:     r.FormValue("username"),
-		Password: r.FormValue("password"),
+		Name:     r.FormValue("Username"),
+		Password: r.FormValue("Password"),
 	}
 	if checkUsername(user.Name) {
 		if len(user.Password) > 5 && user.Password == confirmPassword {
 			user.addUser()
-			http.Redirect(w, r, "/user/login", http.StatusSeeOther)
+			http.Redirect(w, r, "/login", http.StatusSeeOther)
 		} else {
-			http.Redirect(w, r, "/user/create?pass=error", http.StatusSeeOther)
+			http.Redirect(w, r, "/createuser?pass=error", http.StatusSeeOther)
 		}
 	} else {
-		http.Redirect(w, r, "/user/create?user=error", http.StatusSeeOther)
+		http.Redirect(w, r, "/createuser?user=error", http.StatusSeeOther)
 	}
 }
 
@@ -326,12 +344,14 @@ func modifyUserHandler(w http.ResponseWriter, r *http.Request) {
 	data := struct {
 		Base    BaseData
 		Message string
+		Session Session
 	}{
 		Base: BaseData{
 			Title:      "Sport Pulse - Personal data",
 			StaticPath: "static/",
 		},
 		Message: message,
+		Session: mySession,
 	}
 	fmt.Printf("log: data: %#v\n", data) // testing
 	err := tmpl["modifyuser"].ExecuteTemplate(w, "base", data)
@@ -400,14 +420,14 @@ func adminHandler(w http.ResponseWriter, r *http.Request) {
 	data := struct {
 		Base     BaseData
 		Articles []Article
-		User     User
+		Session  Session
 	}{
 		Base: BaseData{
 			Title:      "Dashboard - Sport Pulse",
 			StaticPath: "static/",
 		},
 		Articles: articles,
-		User:     mySession.MyUser,
+		Session:  mySession,
 	}
 	fmt.Printf("log: data: %#v\n", data) // testing
 	err = tmpl["admin"].ExecuteTemplate(w, "base", data)
@@ -428,15 +448,14 @@ func addArticleHandler(w http.ResponseWriter, r *http.Request) {
 	adminGuard(w, r)
 	data := struct {
 		Base       BaseData
-		User       User
 		Categories []string
 		Article    Article
+		Session    Session
 	}{
 		Base: BaseData{
 			Title:      "New article - Sport Pulse",
 			StaticPath: "static/",
 		},
-		User:       mySession.MyUser,
 		Categories: []string{"Formule 1", "Esport", "Football"},
 		Article: Article{
 			Id:           getIdNewArticle(),
@@ -449,6 +468,7 @@ func addArticleHandler(w http.ResponseWriter, r *http.Request) {
 			Introduction: "",
 			Content:      "",
 		},
+		Session: mySession,
 	}
 	fmt.Printf("log: data: %#v\n", data) // testing
 	err := tmpl["addarticle"].ExecuteTemplate(w, "base", data)
@@ -509,12 +529,14 @@ func modifyArticleHandler(w http.ResponseWriter, r *http.Request) {
 	data := struct {
 		Base    BaseData
 		Article Article
+		Session Session
 	}{
 		Base: BaseData{
 			Title:      article.Title,
 			StaticPath: "static/",
 		},
 		Article: article,
+		Session: mySession,
 	}
 	fmt.Printf("log: data: %#v\n", data) // testing
 	err = tmpl["modifyarticle"].ExecuteTemplate(w, "base", data)
@@ -601,6 +623,7 @@ func deleteArticleHandler(w http.ResponseWriter, r *http.Request) {
 		Base    BaseData
 		Article Article
 		Message string
+		Session Session
 	}{
 		Base: BaseData{
 			Title:      article.Title,
@@ -608,6 +631,7 @@ func deleteArticleHandler(w http.ResponseWriter, r *http.Request) {
 		},
 		Article: article,
 		Message: "<div class=\"message\">Do you really want to delete that article ?</div>",
+		Session: mySession,
 	}
 	fmt.Printf("log: data: %#v\n", data) // testing
 	err = tmpl["deletearticle"].ExecuteTemplate(w, "base", data)
@@ -651,12 +675,14 @@ func aboutHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	data := struct {
-		Base BaseData
+		Base    BaseData
+		Session Session
 	}{
 		Base: BaseData{
 			Title:      "Sport Pulse - About",
 			StaticPath: "static/",
 		},
+		Session: mySession,
 	}
 	fmt.Printf("log: data: %#v\n", data) // testing
 	err := tmpl["about"].ExecuteTemplate(w, "base", data)
@@ -674,12 +700,14 @@ func errorHandler(w http.ResponseWriter, r *http.Request, status int) {
 	fmt.Printf("log: status: %#v\n", status) // testing
 	if status == http.StatusNotFound {
 		data := struct {
-			Base BaseData
+			Base    BaseData
+			Session Session
 		}{
 			Base: BaseData{
 				Title:      "Sport Pulse - 404 Not Found",
 				StaticPath: "static/",
 			},
+			Session: mySession,
 		}
 		fmt.Printf("log: data: %#v\n", data) // testing
 		err := tmpl["error404"].ExecuteTemplate(w, "base", data)
@@ -691,12 +719,25 @@ func errorHandler(w http.ResponseWriter, r *http.Request, status int) {
 
 //	adminGuard
 //
-// checks if Session.isOpen to access the restricted area of the website.
+// checks if Session.IsOpen to access the restricted area of the website.
 // Else, it redirects to loginHandler with ?status=restricted query params.
 func adminGuard(w http.ResponseWriter, r *http.Request) {
-	if mySession.isOpen {
+	if mySession.IsOpen {
 		return
 	} else {
 		http.Redirect(w, r, "/login?status=restricted", http.StatusSeeOther)
+	}
+}
+
+//	loginGuard
+//
+// checks if Session.IsOpen to restrict access to loginHandler or createUserHandler
+// and redirects to adminHandler.
+// Else, it allows passage.
+func loginGuard(w http.ResponseWriter, r *http.Request) {
+	if mySession.IsOpen {
+		http.Redirect(w, r, "/admin", http.StatusSeeOther)
+	} else {
+		return
 	}
 }

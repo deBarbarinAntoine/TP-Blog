@@ -18,7 +18,14 @@
             </div>
         </div>
     </div>
-
-
-
+    <section class="mid">
+        {{range .Articles}}
+        <div class="article">
+            <a href="/article?article={{.Id}}"></a>
+            <img class="article-img" src="{{.SmallImg}}" alt="Petite image d'article">
+            <h3 class="title-article">{{.Title}}</h3>
+            <p class="article-info">{{.Introduction}}</p>
+            {{end}}
+        </div>
+    </section>
 {{end}}
