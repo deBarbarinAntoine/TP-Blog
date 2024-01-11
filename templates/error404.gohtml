@@ -1,33 +1,43 @@
 {{define "staticPath"}}{{.Base.StaticPath}}{{end}}
-{{define "css"}}<link rel="stylesheet" href="{{.Base.StaticPath}}css/content.css">{{end}}
+{{define "css"}}
+<link rel="stylesheet" href="{{.Base.StaticPath}}css/content.css">{{end}}
 {{define "title"}}<title>{{.Base.Title}}</title>{{end}}
 
 {{define "header-btn"}}
     {{if .Session.IsOpen}}
-        <a href="/admin"><button>Dashboard</button></a>
-        <a href="/logout"><button>Logout</button></a>
+        <a href="/admin">
+            <button>Dashboard</button>
+        </a>
+        <a href="/logout">
+            <button>Logout</button>
+        </a>
     {{else}}
-        <a href="/login"><button>Login</button></a>
-        <a href="/createuser"><button>Sign up</button></a>
+        <a href="/login">
+            <button>Login</button>
+        </a>
+        <a href="/createuser">
+            <button>Sign up</button>
+        </a>
     {{end}}
 {{end}}
 
 {{define "body"}}
-    <div>
-        <h1>
-           Ouppssss
-        </h1>
-        <div>
-            <h2>
-                la page que vous recherchez semble introuvable.
-            </h2>
-        </div>
-        <div>
-            <h3>
-                Code d'erreur: 404
-            </h3>
+    <div class="error-back">
+        <div class="error-all">
+            <div class="error-title">
+                <h1>Ouppssss</h1>
+            </div>
+
+            <div class="error-message">
+                <h2>
+                    la page que vous recherchez semble introuvable.
+                </h2>
+            </div>
             <div>
-                <liste>
+                <h3 class="error-code">
+                    Code d'erreur: 404
+                </h3>
+                <liste class="error-text">
                     <div>
                         Vous pouvez cliquer sur les onglets en haut ou voici quelques recherches utiles à la place:
                     </div>
@@ -42,9 +52,9 @@
                     </div>
 
                 </liste>
-            </div>
-            <div>
-                <img src="{{.Base.StaticPath}}img/img_error_404.jpg" alt="image d'erreur">
+                <div class="error-image">
+                    <img src="{{.Base.StaticPath}}img/img_error_404.jpg" alt="image d'erreur">
+                </div>
             </div>
         </div>
     </div>
