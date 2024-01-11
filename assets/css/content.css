@@ -2,7 +2,7 @@ body {
     background-color: black;
     background-image: url(../img/logo_detoure.png);
     font-family: "Poppins", sans-serif;
-    height: 150vh;
+    height: 100vh;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -322,6 +322,9 @@ input[type="password"] {
     align-items: center;
 }
 
+/* css pour add article */
+
+
 /* css article index */
 
 .mid{
@@ -354,4 +357,202 @@ input[type="password"] {
     width: 100%;
     height: auto;
     object-fit: cover;
+}
+
+.img-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* CATEGORY CSS */
+
+.top {
+    display: flex;
+}
+
+#title-article {
+    font-size: 1.5rem;
+    margin-right: 2rem;
+    margin-top: 2rem;
+}
+
+.img-top img {
+    width: 85%;
+    height: 100%;
+    padding: 2rem;
+}
+
+.top-right {
+    background-color: #1E1E1E;
+    border-radius: 15px;
+    margin: 2rem 1rem 1rem 1rem;
+}
+
+#titre-right {
+    margin: 0.5rem 0.5rem 1rem 1rem ;
+    background-color: #343434;
+    padding: 0.25rem;
+    border-radius: 20px;
+}
+
+
+
+/* CSS SEARCH */ 
+
+
+
+.searchbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 10px;
+    cursor: pointer;
+    width: 300px;
+    height: 50px;
+    filter: invert(100%);
+    border-radius: 15px;
+    font-size: 30px;
+    padding-right: 40px;
+   
+}
+
+.searchbar:hover {
+    transform: scale(1.03);
+}
+.rectanglecolumn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 30px;
+    background-color: rgba(128, 128, 128, 0.392);
+    box-shadow: 2px 2px 5px rgba(0,0,0,15);
+    padding: 20px;
+    width: 800px;
+    border-radius: 5px;
+ 
+}
+
+.bodysearch {
+    background-color: rgba(0, 0, 0, 0.877);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #fefefe;
+    
+}
+
+.rectanglesearch {
+    padding-top: 150px;
+}
+
+.searchimg {
+    width: 120px;
+    height: 120px;
+}
+
+.imgsearch {
+    display: flex;
+    flex-direction: row;
+    border:solid black;
+    border-radius: 5px;
+}
+
+.infosearch {
+    padding-left: 20px;
+}
+
+.h2search {
+    font-size: 20px;
+}
+
+.h3search {
+    font-size: 15px;
+    font-style: italic;
+}
+
+#iconsearch {
+    margin-top: 2vh;
+    width: 2vw;
+    height: 2vh;
+    filter: invert(100%);
+    background-color: white;
+    display: flex;
+}   
+
+.trysearch button {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    overflow: visible;
+    outline: none;
+    cursor: pointer;
+}
+
+.trysearch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.asearch {
+    text-decoration: none;
+    color: #fefefe;
+}
+
+/* css error 404 */
+
+.error-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 11%;
+    font-family: "Poppins", sans-serif;
+    justify-content: space-between;
+}
+
+.error-container h2{
+    color: white;
+}
+
+.error-container img{
+    width: 450px;
+    height: 400px;
+}
+
+/* CSS ADMIN */
+
+.adminbutton {
+    border-radius: 20px;
+    padding: 0.2vw 2vh 0.35vw 2vh;
+    background-color: white;
+    border: none;
+    color: black;
+    font-size: 1.25vw;
+    cursor: pointer;
+    user-select: none;
+    font-weight: 800;
+}
+
+.adminbutton:hover {
+    background-color: #e6e6e6;
+    transform: scale(1.1);
+}
+
+.Addandmodify {
+    padding: 30px;
+}
+
+.modifyarticlebutton {
+    width: 70px;
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0.877);
+    cursor: pointer;
+    color: #fefefe;
+    
+}
+
+.button-detail-article {
+    padding-top: 10px;
 }

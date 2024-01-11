@@ -1,24 +1,54 @@
 {{define "staticPath"}}{{.Base.StaticPath}}{{end}}
-{{define "css"}}<link rel="stylesheet" href="{{.Base.StaticPath}}css/content.css">{{end}}
+{{define "css"}}
+    <link rel="stylesheet" href="{{.Base.StaticPath}}css/content.css">{{end}}
 {{define "title"}}<title>{{.Base.Title}}</title>{{end}}
 
 {{define "header-btn"}}
     {{if .Session.IsOpen}}
-        <a href="/admin"><button>Dashboard</button></a>
-        <a href="/logout"><button>Logout</button></a>
+        <a href="/admin">
+            <button>Dashboard</button>
+        </a>
+        <a href="/logout">
+            <button>Logout</button>
+        </a>
     {{else}}
-        <a href="/login"><button>Login</button></a>
-        <a href="/createuser"><button>Sign up</button></a>
+        <a href="/login">
+            <button>Login</button>
+        </a>
+        <a href="/createuser">
+            <button>Sign up</button>
+        </a>
     {{end}}
 {{end}}
 
 {{define "body"}}
-    <section>
-        <h1>{{.Article.Title}}</h1>
-        <img src="{{.Article.BigImg}}" alt="Image de l'article">
+    <div class="top">
+        <div class="top-left">
+                <div class="title">
+                    <h1 id="title-article">{{.Article.Title}}</h1>
+                </div>
+                <div class="img-top">
+                    <img src="{{.Article.BigImg}}" alt="Grosse image d'article">
+                </div>
+        </div>
+        <div class="top-right">
+            <div class="title">
+                <h3>Nos nouveaux articles</h3>
+            </div>
+            {{range.Recommended}}
+                <div>
+                    <a href="/article?article={{.Id}}">
+                        <p id="titre-right">{{.Title}}</p>
+                    </a>
+                </div>
+            {{end}}
+        </div>
         <h2>{{.Article.Introduction}}</h2>
         <h3>{{.Article.Author}}</h3>
         <p> {{.Article.Date}}</p>
         <article>{{.Article.Content}}</article>
-    </section>
+    </div>
+
+
+
 {{end}}

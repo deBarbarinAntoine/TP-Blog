@@ -15,40 +15,41 @@
 
 {{define "body"}}
     <div class="top">
-        <a href="/article?article={{.MainArticle.Id}}"></a>
         <div class="top-left">
-            <div class="title">
-                <h1>{{.MainArticle.Title}}</h1>
-            </div>
-            <div class="img-top">
-                <img src="{{.MainArticle.BigImg}}" alt="Grosse image d'article">
-            </div>
+            <a href="/article?article={{.MainArticle.Id}}">
+                <div class="title">
+                    <h1 id="title-article">{{.MainArticle.Title}}</h1>
+                </div>
+                <div class="img-top">
+                    <img src="{{.MainArticle.BigImg}}" alt="Grosse image d'article">
+                </div>
+            </a>
         </div>
         <div class="top-right">
             <div class="title">
                 <h3>Nos nouveaux articles</h3>
-                {{range.Category}}
             </div>
-            <div>
-                <p>{{.Title}}</p>
-            </div>
-            <div>
-                <p>{{.Title}}</p>
-            </div>
-            <div>
-                <p>{{.Title}}</p>
-            </div>
+            {{range.Category}}
+                <div>
+                    <a href="/article?article={{.Id}}">
+                        <p id="titre-right">{{.Title}}</p>
+                    </a>
+                </div>
+            {{end}}
         </div>
-        {{end}}
+
     </div>
     <section class="mid">
         {{range.Category}}
-        <div class="article">
-            <a href="/article?article={{.Id}}"></a>
-            <img class="article-img" src="{{.SmallImg}}" alt="Petite image d'article">
-            <h3 class="title-article">{{.Title}}</h3>
-            <p class="article-info">{{.Introduction}}</p>
-        </div>
+            <div class="article">
+                <a href="/article?article={{.Id}}">
+                    <div class="img-center">
+                        <img class="article-img" src="{{.SmallImg}}" alt="Petite image d'article">
+                    </div>
+                    <h3 class="title-article">{{.Title}}</h3>
+                    <p class="article-info">{{.Introduction}}</p>
+                </a>
+            </div>
         {{end}}
     </section>
 {{end}}
