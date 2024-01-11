@@ -4,5 +4,12 @@
 
 
 {{define "body"}}
-
+    <section>
+        <h1>{{.Article.Title}}</h1>
+        <img src="{{.Article.BigImg}}" alt="Image de l'article">
+        <h2>{{.Article.Introduction}}</h2>
+        <h3>{{.Article.Author}}</h3>
+        <p> {{.Article.Date}}</p>
+        <article>{{.Article.Content}}</article>
+    </section>
 {{end}}

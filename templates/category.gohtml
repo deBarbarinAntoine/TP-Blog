@@ -1,42 +1,45 @@
 {{define "staticPath"}}{{.Base.StaticPath}}{{end}}
-{{define "css"}}<link rel="stylesheet" href="{{.Base.StaticPath}}css/content.css">{{end}}
+{{define "css"}}
+<link rel="stylesheet" href="{{.Base.StaticPath}}css/content.css">{{end}}
 {{define "title"}}<title>{{.Base.Title}}</title>{{end}}
 
 
 {{define "body"}}
-       <div class="top">
-           <div class="top-left">
-               <div class="title">
-                   <h1>{{.MainArticle.Title}}</h1>
-               </div>
-               <div class="img-top">
-                   <img src="{{.MainArticle.BigImg}}" alt="Grosse image d'article">
-               </div>
-           </div>
-           <div class="top-right">
-               <div class="title">
-                   <h3>Nos nouveaux articles</h3>
-       {{range.Category}}
-               </div>
-               <div>
-                   <p>{{.Title}}</p>
-               </div>
-               <div>
-                   <p>{{.Title}}</p>
-               </div>
-               <div>
-                   <p>{{.Title}}</p>
-               </div>
-           </div>
-           {{end}}
-       </div>
-       <section class="mid">
-           <div class="article">
-               {{range.Category}}
-               <img class="article-img" src="{{.SmallImg}}" alt="Petite image d'article">
-               <h3 class="title-article">{{.Title}}</h3>
-               <p class="article-info">{{.Introduction}}</p>
-               {{end}}
-           </div>
-       </section>
+    <div class="top">
+        <a href="/article?article={{.MainArticle.Id}}"></a>
+        <div class="top-left">
+            <div class="title">
+                <h1>{{.MainArticle.Title}}</h1>
+            </div>
+            <div class="img-top">
+                <img src="{{.MainArticle.BigImg}}" alt="Grosse image d'article">
+            </div>
+        </div>
+        <div class="top-right">
+            <div class="title">
+                <h3>Nos nouveaux articles</h3>
+                {{range.Category}}
+            </div>
+            <div>
+                <p>{{.Title}}</p>
+            </div>
+            <div>
+                <p>{{.Title}}</p>
+            </div>
+            <div>
+                <p>{{.Title}}</p>
+            </div>
+        </div>
+        {{end}}
+    </div>
+    <section class="mid">
+        {{range.Category}}
+        <div class="article">
+            <a href="/article?article={{.Id}}"></a>
+            <img class="article-img" src="{{.SmallImg}}" alt="Petite image d'article">
+            <h3 class="title-article">{{.Title}}</h3>
+            <p class="article-info">{{.Introduction}}</p>
+            {{end}}
+        </div>
+    </section>
 {{end}}
