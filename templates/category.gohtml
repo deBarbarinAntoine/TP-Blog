@@ -1,5 +1,5 @@
 {{define "staticPath"}}{{.Base.StaticPath}}{{end}}
-
+{{define "css"}}<link rel="stylesheet" href="{{.Base.StaticPath}}css/content.css">{{end}}
 {{define "title"}}<title>{{.Base.Title}}</title>{{end}}
 
 
@@ -7,15 +7,16 @@
        <div class="top">
            <div class="top-left">
                <div class="title">
-                   <h1>{{.Title}}</h1>
+                   <h1>{{.MainArticle.Title}}</h1>
                </div>
                <div class="img-top">
-                   <img src="{{.BigImg}}" alt="Grosse image d'article">
+                   <img src="{{.MainArticle.BigImg}}" alt="Grosse image d'article">
                </div>
            </div>
            <div class="top-right">
                <div class="title">
-                   <h3></h3>
+                   <h3>Nos nouveaux articles</h3>
+       {{range.Category}}
                </div>
                <div>
                    <p>{{.Title}}</p>
@@ -27,6 +28,7 @@
                    <p>{{.Title}}</p>
                </div>
            </div>
+           {{end}}
        </div>
        <section class="mid">
            <div class="article">
