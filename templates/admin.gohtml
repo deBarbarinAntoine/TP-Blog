@@ -14,33 +14,35 @@
 
 {{define "body"}}
     <div class="bodysearch">
-
-    <section class="rectanglesearch">
-     <form action="/search" method="get">
-     <div class="trysearch">
-     </div>
-    </form>
-    </section>
-    <div class="Addandmodify">
-     <a href="/addarticle"> <button class="adminbutton"> Ajouter un Article </button> </a>
-     <a href="/modifyuser"> <button class="adminbutton"> Modifier Utilisateur </button> </a>
-     </div>
-    {{range .Articles}}</button>
-        <section class="rectanglecolumn">
-        <a class="asearch"href="/article?article={{.Id}}">
-        <div class="imgsearch">
-        <img class="searchimg" src="{{.SmallImg}}">
-         </div>
-         <div class="infosearch">
-        <div class="h2search">{{.Title}}</div> <br>
-        <div class="h3search">{{.Author}} </div>  
-        <div class="h3search">{{.Date}}</div>  
-        <div class="button-detail-article">
-        <a href="/modifyarticle?article={{.Id}}"> <button class="modifyarticlebutton"> Modifier l'article </button> </a>
-        <a href="/deletearticle?article={{.Id}}"> <button class="modifyarticlebutton"> Supprimer l'article </button> </a>
-         </div>
-        </a>
+        <section class="rectanglesearch">
+            <form action="/search" method="get">
+                <div class="trysearch">
+                    <input id="bar" type="text" name="q" placeholder=" Type..." value="{{.Search}}">
+                    <button type="submit"><box-icon id="icon" name='search-alt-2'></box-icon></button>
+                </div>
+            </form>
+        </section>
+        <div class="Addandmodify">
+            <a href="/addarticle"> <button class="adminbutton"> Ajouter un Article </button> </a>
+            <a href="/modifyuser"> <button class="adminbutton"> Modifier Utilisateur </button> </a>
         </div>
-    </section>
-{{end}}
+        {{range .Articles}}
+            <section class="rectanglecolumn">
+                <a class="asearch" href="/article?article={{.Id}}">
+                    <div class="imgsearch">
+                        <img class="searchimg" src="{{.SmallImg}}">
+                    </div>
+                    <div class="infosearch">
+                        <div class="h2search">{{.Title}}</div> <br>
+                        <div class="h3search">{{.Author}} </div>
+                        <div class="h3search">{{.Date}}</div>
+                        <div class="button-detail-article">
+                            <a href="/modifyarticle?article={{.Id}}"> <button class="modifyarticlebutton"> Modifier l'article </button> </a>
+                            <a href="/deletearticle?article={{.Id}}"> <button class="modifyarticlebutton"> Supprimer l'article </button> </a>
+                        </div>
+                    </div>
+                </a>
+            </section>
+        {{end}}
+    </div>
 {{end}}
