@@ -188,6 +188,7 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
+	loginGuard(w, r)
 	var message string
 	switch r.URL.Query().Get("status") {
 	case "error":
@@ -224,6 +225,7 @@ func loginTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
+	loginGuard(w, r)
 	if login(r.FormValue("Username"), r.FormValue("Password")) {
 		fmt.Println("log: loginTreatment() correct login: welcome ", r.FormValue("Username"), "!")
 		http.Redirect(w, r, "/admin", http.StatusSeeOther)
@@ -249,7 +251,7 @@ func logoutHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("log: logout() passing through!")
 	mySession.Close()
 	fmt.Printf("log logout() session cleared: %#v\n", mySession)
-	http.Redirect(w, r, "/index", http.StatusMovedPermanently)
+	http.Redirect(w, r, "/index", http.StatusSeeOther)
 }
 
 //	createUserHandler
@@ -263,6 +265,7 @@ func createUserHandler(w http.ResponseWriter, r *http.Request) {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
+	loginGuard(w, r)
 	user := r.URL.Query().Get("user")
 	pass := r.URL.Query().Get("pass")
 	var message string
@@ -302,6 +305,7 @@ func createUserTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
+	loginGuard(w, r)
 	confirmPassword := r.FormValue("Password-check")
 	var user = User{
 		Name:     r.FormValue("Username"),
@@ -720,5 +724,18 @@ func adminGuard(w http.ResponseWriter, r *http.Request) {
 		return
 	} else {
 		http.Redirect(w, r, "/login?status=restricted", http.StatusSeeOther)
+	}
+}
+
+//	loginGuard
+//
+// checks if Session.IsOpen to restrict access to loginHandler or createUserHandler
+// and redirects to adminHandler.
+// Else, it allows passage.
+func loginGuard(w http.ResponseWriter, r *http.Request) {
+	if mySession.IsOpen {
+		http.Redirect(w, r, "/admin", http.StatusSeeOther)
+	} else {
+		return
 	}
 }
