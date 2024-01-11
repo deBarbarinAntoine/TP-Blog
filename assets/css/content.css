@@ -2,7 +2,7 @@ body {
     background-color: black;
     background-image: url(../img/logo_detoure.png);
     font-family: "Poppins", sans-serif;
-    height: 150vh;
+    height: 100vh;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -317,10 +317,10 @@ input[type="password"] {
 
 .rectanglemaquette {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }
+
+/* css pour add article */
+
 
 /* css article index */
 
@@ -354,4 +354,108 @@ input[type="password"] {
     width: 100%;
     height: auto;
     object-fit: cover;
+}
+
+/* CSS SEARCH */ 
+
+
+
+.searchbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 10px;
+    cursor: pointer;
+    width: 300px;
+    height: 50px;
+    filter: invert(100%);
+    border-radius: 15px;
+    font-size: 30px;
+    padding-right: 40px;
+   
+}
+
+.searchbar:hover {
+    transform: scale(1.03);
+}
+.rectanglecolumn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 30px;
+    background-color: rgba(128, 128, 128, 0.392);
+    box-shadow: 2px 2px 5px rgba(0,0,0,15);
+    padding: 20px;
+    width: 800px;
+    border-radius: 5px;
+ 
+}
+
+.bodysearch {
+    background-color: rgba(0, 0, 0, 0.877);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #fefefe;
+    
+}
+
+.rectanglesearch {
+    padding-top: 150px;
+}
+
+.searchimg {
+    width: 120px;
+    height: 120px;
+}
+
+.imgsearch {
+    display: flex;
+    flex-direction: row;
+    border:solid black;
+    border-radius: 5px;
+}
+
+.infosearch {
+    padding-left: 20px;
+}
+
+.h2search {
+    font-size: 20px;
+}
+
+.h3search {
+    font-size: 15px;
+    font-style: italic;
+}
+
+#iconsearch {
+    margin-top: 2vh;
+    width: 2vw;
+    height: 2vh;
+    filter: invert(100%);
+    background-color: white;
+    display: flex;
+}   
+
+.trysearch button {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    overflow: visible;
+    outline: none;
+    cursor: pointer;
+}
+
+.trysearch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.asearch {
+    text-decoration: none;
+    color: #fefefe;
 }

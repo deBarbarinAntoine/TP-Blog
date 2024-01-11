@@ -6,6 +6,9 @@
     box-sizing: border-box;
 }
 
+header {
+    padding-bottom: 6rem;
+}
 
 /* css du header */
 
