@@ -35,17 +35,18 @@
     </div>
     <section class="mid">
         {{range .Articles}}
-        <div class="article">
-            <a href="/article?article={{.Id}}"></a>
-            <!--<div class="article-img" style="background-image: url({{.SmallImg}}); background-size: cover; background-position: center; background-repeat: no-repeat"></div>-->
-            <div class="article-img">
-                <img src="{{.SmallImg}}" alt="Petite image d'article">
-            </div>
+            <div class="article">
+                <a href="/article?article={{.Id}}">
+                    <!--<div class="article-img" style="background-image: url({{.SmallImg}}); background-size: cover; background-position: center; background-repeat: no-repeat"></div>-->
+                    <div class="article-img">
+                        <img src="{{.SmallImg}}" alt="Petite image d'article">
+                    </div>
 
-            <h3 class="title-article">{{.Title}}</h3>
-            <p class="article-info">{{.Author}}</p>
-            <p class="article-info">{{.Date}}</p>
-        </div>
+                    <h3 class="title-article">{{.Title}}</h3>
+                    <p class="article-info">{{.Author}}</p>
+                    <p class="article-info">{{.Date}}</p>
+                </a>
+            </div>
         {{end}}
     </section>
 {{end}}
