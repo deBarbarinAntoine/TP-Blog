@@ -121,3 +121,137 @@
 .foot:active {
     transform: scale(0.9);
 }
+
+
+.box {
+    padding-top: 25vh;
+}
+
+.form {
+    width: 350px;
+    height: 450px;
+    margin: 0 auto;
+    border-radius: 10px;
+    border: solid 1px white;
+    background-color: black;
+}
+
+h3 {
+    text-align: center;
+    padding: 2rem 1rem;
+    color: #eee;
+    letter-spacing: 2px;
+}
+
+.username,
+.password {
+    display: flex;
+    justify-content: space-around;
+    border-radius: 50px;
+    align-items: center;
+    margin: 0 2.5rem 1rem 2.5rem;
+    outline: none;
+    border-style: none;
+    border: 1px solid #5f3dc4;
+}
+
+input::placeholder {
+    color: #ddd;
+}
+
+p {
+    color: #ddd;
+}
+
+.icon {
+    padding-right: 0.5rem;
+    color: #ddd;
+}
+
+input[placeholder="Username"],
+input[placeholder="Password"],
+input[placeholder="Confirm Password"] {
+    padding: 0.75rem 1.5rem;
+    outline: none;
+    border-style: none;
+    background-color: transparent;
+    color: #ddd;
+}
+
+.username:hover,
+.password:hover {
+    border: 2px solid #5f3dc4;
+}
+
+
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 3rem;
+    font-size: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.remember {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox {
+    outline: none;
+    border-style: none;
+    margin-right: 0.25rem;
+    padding: 1rem;
+}
+
+a {
+    text-decoration: none;
+    color: #5f3dc4;
+    transition: all 0.3s;
+}
+
+a:hover {
+    opacity: 0.8;
+}
+
+.btn-box {
+    display: flex;
+    justify-content: center;
+}
+
+.btn-box button {
+    padding: 0.5rem 1.5rem;
+    border-radius: 50px;
+    outline: none;
+    border-style: none;
+    width: 75%;
+    cursor: pointer;
+    transition: all 0.5s;
+    background-color: #fff;
+    text-align: center;
+    color: #5f3dc4;
+    font-size: 1vw;
+}
+
+.btn-box:hover button {
+    background-color: #5f3dc4;
+    color: #fff;
+}
+
+.btn-box a:hover {
+    opacity: 0.8;
+}
+
+.register {
+    display: flex;
+    justify-content: center;
+    font-size: 0.75rem;
+    margin-top: 4rem;
+}
+
+input[type="password"] {
+    font-size: 1vw;
+    font-weight: 600;
+    text-decoration: none;
+}
