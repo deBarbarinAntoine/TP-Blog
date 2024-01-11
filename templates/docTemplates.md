@@ -134,7 +134,7 @@ data := struct {
         Title      string
         StaticPath string
     }
-    Article Article {
+    Article ArticleHTML {
         Id           int
         Category     string
         Title        string
@@ -143,7 +143,7 @@ data := struct {
         BigImg       string
         SmallImg     string
         Introduction string
-        Content      string
+        Content      template.HTML
     }
     Recommended []Article {
         Id           int

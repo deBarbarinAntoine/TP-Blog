@@ -486,12 +486,15 @@ func addArticleTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	adminGuard(w, r)
 	newCtn := Article{
-		Id:       getIdNewArticle(),
-		Category: r.FormValue("category"),
-		Title:    r.FormValue("title"),
-		Author:   mySession.MyUser.Name,
-		Date:     time.Now().Format("02/01/2006"),
-		Content:  r.FormValue("content"),
+		Id:           getIdNewArticle(),
+		Category:     r.FormValue("category"),
+		Title:        r.FormValue("title"),
+		Author:       mySession.MyUser.Name,
+		Date:         time.Now().Format("02/01/2006"),
+		BigImg:       r.FormValue("bigImg"),
+		SmallImg:     r.FormValue("smallImg"),
+		Introduction: r.FormValue("introduction"),
+		Content:      r.FormValue("content"),
 	}
 	addArticle(newCtn)
 	fmt.Printf("log: newCtn: %#v\n", newCtn) // testing
@@ -578,12 +581,15 @@ func modifyArticleTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		newCtn := Article{
-			Id:       idInForm,
-			Category: r.FormValue("category"),
-			Title:    r.FormValue("title"),
-			Author:   article.Author,
-			Date:     time.Now().Format("02/01/2006"),
-			Content:  r.FormValue("content"),
+			Id:           idInForm,
+			Category:     r.FormValue("category"),
+			Title:        r.FormValue("title"),
+			Author:       article.Author,
+			Date:         time.Now().Format("02/01/2006"),
+			BigImg:       r.FormValue("bigImg"),
+			SmallImg:     r.FormValue("smallImg"),
+			Introduction: r.FormValue("introduction"),
+			Content:      r.FormValue("content"),
 		}
 		modifyArticle(newCtn)
 		fmt.Printf("log: updatedCtn: %#v\n", newCtn) // testing
