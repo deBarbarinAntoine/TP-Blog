@@ -4,5 +4,38 @@
 
 
 {{define "body"}}
+    <main class="box">
+        <form action="/createuser/treatment" class="form" method="post">
+            <h3>Sign up</h3>
+
+            <div class="username">
+                <input type="text" name="Username" placeholder="Username" required />
+                <ion-icon name="person"></ion-icon>
+            </div>
+
+            <div class="password">
+                <input type="password" name="Password" placeholder="Password" required />
+                <ion-icon name="lock-closed"></ion-icon>
+            </div>
+
+            <div class="password">
+                <input type="password" name="Password-check" placeholder="Confirm Password" required />
+                <ion-icon name="lock-closed"></ion-icon>
+            </div>
+
+
+            <div class="btn-box">
+                <button type="submit">Sign up</button>
+            </div>
+
+            <div class="register">
+                <p>Have an account?
+                    <a href="/login" target="_blank">
+                        <span>Sign in</span>
+                    </a>
+                </p>
+            </div>
+        </form>
+    </main>
 
 {{end}}
