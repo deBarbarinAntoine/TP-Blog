@@ -106,6 +106,8 @@ data := struct {
     }
 }
 ```
+- Articles: ``/article?article=<article-id>``
+
 [↑ Return to table of content](#templates)
 
 
@@ -158,6 +160,8 @@ data := struct {
     Message string  // message if the search doesn't match any content: <div class="message">There is no article matching your research!</div>
 }
 ```
+- Articles: ``/article?article=<article-id>``
+
 [↑ Return to table of content](#templates)
 
 
@@ -173,6 +177,10 @@ data := struct {
     Message string // message if there is a problem logging (username or password): <div class="message">Wrong username or password!</div>
 }                  // also contains a message when redirected from restricted website area without login.
 ```
+
+- Submit: ``/login/treatment``
+- Register: ``/createuser``
+
 [↑ Return to table of content](#templates)
 
 
@@ -188,6 +196,10 @@ data := struct {
     Message string // message if there is a problem signing up (username or password): <div class="message">Username already used!</div>
 }
 ```
+
+- Submit: ``/createuser/treatment``
+- Login: ``/login``
+
 [↑ Return to table of content](#templates)
 
 
@@ -203,6 +215,10 @@ data := struct {
     Message string // message if there is a problem modifying user info (username or password): <div class="message">Invalid data!</div>
 }
 ```
+
+- Submit: ``/createuser/treatment``
+- Cancel: ``/admin``
+
 [↑ Return to table of content](#templates)
 
 
@@ -232,6 +248,12 @@ data := struct {
     }
 }
 ```
+
+- Add article: ``/addarticle``
+- Article: ``/article?article=<article-id>``
+- Modify article: ``/modifyarticle?article=<article-id>``
+- Delete article: ``/deletearticle?article=<article-id>``
+
 [↑ Return to table of content](#templates)
 
 
@@ -262,6 +284,10 @@ data := struct {
     }
 }
 ```
+
+- Submit: ``/addarticle/treatment``
+- Cancel: ``/admin``
+
 [↑ Return to table of content](#templates)
 
 
@@ -287,6 +313,10 @@ data := struct {
     }
 }
 ```
+
+- Submit: ``/modifyarticle/treatment?article=<article-id>``
+- Cancel: ``/admin``
+
 [↑ Return to table of content](#templates)
 
 
@@ -313,6 +343,10 @@ data := struct {
     Message string  // message asking for confirmation: <div class="message">Do you really want to delete that article ?</div>
 }
 ```
+
+- Submit: ``/deletearticle/treatment?article=<article-id>``
+- Cancel: ``/admin``
+
 [↑ Return to table of content](#templates)
 
 
