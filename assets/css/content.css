@@ -323,7 +323,28 @@ input[type="password"] {
 }
 
 /* css pour add article */
+.all-article{
+    color: white;
+}
 
+.article-ctn{
+    margin: 1rem 2rem;
+}
+
+.ctn-title1{
+    font-size: 1.5rem;
+    margin: .7rem 0;
+}
+
+.ctn-title2 {
+    font-size: 1.3rem;
+    margin: .5rem 0;
+}
+
+.ctn-title3 {
+    font-size: 1.1rem;
+    margin: .3rem 0;
+}
 
 /* css article index */
 
