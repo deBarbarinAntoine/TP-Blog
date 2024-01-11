@@ -14,14 +14,6 @@
 
 {{define "body"}}
     <div class="bodysearch">
-        <section class="rectanglesearch">
-            <form action="/search" method="get">
-                <div class="trysearch">
-                    <input id="bar" type="text" name="q" placeholder=" Type..." value="{{.Search}}">
-                    <button type="submit"><box-icon id="icon" name='search-alt-2'></box-icon></button>
-                </div>
-            </form>
-        </section>
         <div class="Addandmodify">
             <a href="/addarticle"> <button class="adminbutton"> Ajouter un Article </button> </a>
             <a href="/modifyuser"> <button class="adminbutton"> Modifier Utilisateur </button> </a>
