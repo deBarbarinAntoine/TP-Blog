@@ -24,7 +24,7 @@
     </form>
     </section>
     <div class="Addandmodify">
-    <a href="/addarticle"> <button class="adminbutton"> Ajouter un Article </button> </a>
+     <a href="/addarticle"> <button class="adminbutton"> Ajouter un Article </button> </a>
      <a href="/modifyuser"> <button class="adminbutton"> Modifier Utilisateur </button> </a>
      </div>
     {{range .Articles}}</button>
@@ -38,8 +38,8 @@
         <div class="h3search">{{.Author}} </div>  
         <div class="h3search">{{.Date}}</div>  
         <div class="button-detail-article">
-        <a href="/modifyarticle/treatment?article={{.Id}}"> <button class="modifyarticlebutton"> Modifier l'article </button> </a>
-        <a href="/deletearticle/treatment?article={{.Id}}"> <button class="modifyarticlebutton"> Supprimer l'article </button> </a>
+        <a href="/modifyarticle?article={{.Id}}"> <button class="modifyarticlebutton"> Modifier l'article </button> </a>
+        <a href="/deletearticle?article={{.Id}}"> <button class="modifyarticlebutton"> Supprimer l'article </button> </a>
          </div>
         </a>
         </div>
