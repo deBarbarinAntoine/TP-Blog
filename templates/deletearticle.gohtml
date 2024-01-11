@@ -1,7 +1,12 @@
 {{define "staticPath"}}{{.Base.StaticPath}}{{end}}
-
+{{define "css"}}<link rel="stylesheet" href="{{.Base.StaticPath}}css/content.css">{{end}}
 {{define "title"}}<title>{{.Base.Title}}</title>{{end}}
 
 
 {{define "body"}}
+    <section>
+        <h1> voulez vous vraiment supprimer cette article</h1>
+        <a class="oui" href="/deletearticle/treatment?article={{.Article.Id}}"> Oui supprimer</a>
+        <a class="non" href="/admin">Non je ne veux pas</a>
+    </section>
 {{end}}

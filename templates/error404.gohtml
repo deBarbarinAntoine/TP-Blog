@@ -1,5 +1,5 @@
 {{define "staticPath"}}{{.Base.StaticPath}}{{end}}
-
+{{define "css"}}<link rel="stylesheet" href="{{.Base.StaticPath}}css/content.css">{{end}}
 {{define "title"}}<title>{{.Base.Title}}</title>{{end}}
 
 
@@ -35,7 +35,7 @@
                 </liste>
             </div>
             <div>
-                <img src="assets/img/img_error_404.jpg" alt="">
+                <img src="assets/img/img_error_404.jpg" alt="image d'erreur">
             </div>
         </div>
     </div>

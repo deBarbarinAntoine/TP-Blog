@@ -28,6 +28,25 @@ err := tmpl["index"].ExecuteTemplate(w, "base", data)
 
 ---
 
+## Header links
+
+- Formule 1: ``/category?category=Formule 1``
+- Esport: ``/category?category=Esport``
+- Foot: ``/category?category=Football``
+- Login: ``/login``
+- Sign up: ``/adduser``
+- Search: ``/search?q=<search>``
+- Logout: ``/logout``
+- Admin: ``/admin``
+
+---
+
+## Footer links
+
+- About: ``/about``
+- Terms&Conditions: ``/about#<legal>``
+
+---
 
 ### index.gohtml
 ```go
@@ -49,6 +68,9 @@ data := struct {
     }
 }
 ```
+
+- Articles: ``/article?article=<article-id>``
+
 [↑ Return to table of content](#templates)
 
 ---
