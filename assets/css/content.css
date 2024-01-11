@@ -321,3 +321,37 @@ input[type="password"] {
     justify-content: center;
     align-items: center;
 }
+
+/* css article index */
+
+.mid{
+    padding-top: 15%;
+    display: flex;
+    margin: 3rem 0;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    max-width: 99vw;
+}
+
+.article{
+    display: flex;
+    width: 45%;
+    gap: 1rem;
+    padding: .6rem;
+    border-radius: 1rem;
+    background-color: #2b2d30;
+
+}
+
+.article-img {
+    border-radius: .5rem;
+    width: 250px;
+    min-width: 250px;
+}
+
+.article-img img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}

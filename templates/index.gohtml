@@ -22,10 +22,15 @@
         {{range .Articles}}
         <div class="article">
             <a href="/article?article={{.Id}}"></a>
-            <img class="article-img" src="{{.SmallImg}}" alt="Petite image d'article">
+            <!--<div class="article-img" style="background-image: url({{.SmallImg}}); background-size: cover; background-position: center; background-repeat: no-repeat"></div>-->
+            <div class="article-img">
+                <img src="{{.SmallImg}}" alt="Petite image d'article">
+            </div>
+
             <h3 class="title-article">{{.Title}}</h3>
-            <p class="article-info">{{.Introduction}}</p>
-            {{end}}
+            <p class="article-info">{{.Author}}</p>
+            <p class="article-info">{{.Date}}</p>
         </div>
+        {{end}}
     </section>
 {{end}}
