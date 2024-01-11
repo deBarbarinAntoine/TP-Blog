@@ -14,27 +14,38 @@
 
 {{define "body"}}
     <div class="main-article">
-        <h2 id="article-title">Ajouter un Article : </h2>
+        <h2 id="article-title">Add a new article : </h2>
         <div class="article-content">
             <form action="" method="post">
                 <div class="article-input">
-                    <label id="lab" for="titre">Titre</label>
+                    <label id="lab" for="titre">Title</label>
                     <input type="text" name="title">
                 </div>
                 <div class="article-input">
-                    <label id="lab" for="categorie">Categorie</label>
-                    <input type="text" name="category">
+                    <select name="category" id="category">
+                        {{range .Categories}}
+                            <option value="{{.}}">{{.}}</option>
+                        {{end}}
+                    </select>
                 </div>
                 <div class="article-input">
-                    <label id="lab" for="intro">Intro</label>
+                    <label id="lab" for="intro">Introduction</label>
                     <input type="text" name="introduction">
                 </div>
+                <div class="article-input">
+                    <label id="lab" for="smallImg">Small image</label>
+                    <input type="text" name="smallImg">
+                </div>
+                <div class="article-input">
+                    <label id="lab" for="bigImg">Big image</label>
+                    <input type="text" name="bigImg">
+                </div>
                 <div class="article-input test">
-                    <label id="lab" for="contenu">Contenu</label>
+                    <label id="lab" for="contenu">Content</label>
                     <textarea name="content"></textarea>
                 </div>
                 <div class="article-button">
-                    <button type="submit">submit</button>
+                    <button type="submit">Submit</button>
                 </div>
 
             </form>
