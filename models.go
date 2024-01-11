@@ -1,5 +1,7 @@
 package TPBlog
 
+import "html/template"
+
 // BaseData stores all basic data used in the base.gohtml template.
 type BaseData struct {
 	Title      string
@@ -29,4 +31,16 @@ type Article struct {
 	SmallImg     string `json:"small_img"`
 	Introduction string `json:"introduction"`
 	Content      string `json:"content"`
+}
+
+type ArticleHTML struct {
+	Id           int           `json:"id"`
+	Category     string        `json:"category"`
+	Title        string        `json:"title"`
+	Author       string        `json:"author"`
+	Date         string        `json:"date"`
+	BigImg       string        `json:"big_img"`
+	SmallImg     string        `json:"small_img"`
+	Introduction string        `json:"introduction"`
+	Content      template.HTML `json:"content"`
 }

@@ -2,6 +2,7 @@ package TPBlog
 
 import (
 	"encoding/json"
+	"html/template"
 	"log"
 	"math/rand"
 	"os"
@@ -190,10 +191,10 @@ func modifyArticle(updatedArticle Article) {
 
 //	formatArticle
 //
-// replace all # markdown title signs with html in `article`'s content and returns the formatted version.
-func formatArticle(article Article) string {
+// replace all # markdown title signs with html in `article`'s content and returns the Article 's formatted version.
+func formatArticle(article Article) ArticleHTML {
 	var Match bool = true
-	var ctn string
+	var formattedArticle ArticleHTML
 	title3 := regexp.MustCompile("### .+\\n")
 	titles3 := title3.FindAllString(article.Content, -1)
 	if len(titles3) == 0 {
@@ -203,7 +204,7 @@ func formatArticle(article Article) string {
 		for i, title := range titles3 {
 			title = strings.Replace(title, "### ", "<div class=\"ctn-title3\">", 1)
 			title = strings.Replace(title, "\n", "</div>\n", 1)
-			ctn = strings.Replace(article.Content, titles3[i], title, 1)
+			article.Content = strings.Replace(article.Content, titles3[i], title, 1)
 		}
 	}
 	Match = true
@@ -216,7 +217,7 @@ func formatArticle(article Article) string {
 		for i, title := range titles2 {
 			title = strings.Replace(title, "## ", "<div class=\"ctn-title2\">", 1)
 			title = strings.Replace(title, "\n", "</div>\n", 1)
-			ctn = strings.Replace(article.Content, titles2[i], title, 1)
+			article.Content = strings.Replace(article.Content, titles2[i], title, 1)
 		}
 	}
 	Match = true
@@ -229,8 +230,21 @@ func formatArticle(article Article) string {
 		for i, title := range titles1 {
 			title = strings.Replace(title, "# ", "<div class=\"ctn-title1\">", 1)
 			title = strings.Replace(title, "\n", "</div>\n", 1)
-			ctn = strings.Replace(article.Content, titles1[i], title, 1)
+			article.Content = strings.Replace(article.Content, titles1[i], title, 1)
 		}
 	}
-	return ctn
+
+	formattedArticle = ArticleHTML{
+		Id:           article.Id,
+		Category:     article.Category,
+		Title:        article.Title,
+		Author:       article.Author,
+		Date:         article.Date,
+		BigImg:       article.BigImg,
+		SmallImg:     article.SmallImg,
+		Introduction: article.Introduction,
+		Content:      template.HTML(article.Content),
+	}
+
+	return formattedArticle
 }

@@ -2,6 +2,16 @@
 {{define "css"}}<link rel="stylesheet" href="{{.Base.StaticPath}}css/content.css">{{end}}
 {{define "title"}}<title>{{.Base.Title}}</title>{{end}}
 
+{{define "header-btn"}}
+    {{if .Session.IsOpen}}
+        <a href="/admin"><button>Dashboard</button></a>
+        <a href="/logout"><button>Logout</button></a>
+    {{else}}
+        <a href="/login"><button>Login</button></a>
+        <a href="/createuser"><button>Sign up</button></a>
+    {{end}}
+{{end}}
+
 {{define "body"}}
     <div class="main-article">
         <h2 id="article-title">Ajouter un Article : </h2>

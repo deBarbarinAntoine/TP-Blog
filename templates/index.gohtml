@@ -2,30 +2,50 @@
 {{define "css"}}<link rel="stylesheet" href="{{.Base.StaticPath}}css/content.css">{{end}}
 {{define "title"}}<title>{{.Base.Title}}</title>{{end}}
 
+{{define "header-btn"}}
+    {{if .Session.IsOpen}}
+        <a href="/admin"><button>Dashboard</button></a>
+        <a href="/logout"><button>Logout</button></a>
+    {{else}}
+        <a href="/login"><button>Login</button></a>
+        <a href="/createuser"><button>Sign up</button></a>
+    {{end}}
+{{end}}
 
 {{define "body"}}
     <div class="content">
         <h1>Sport Pulse</h1>
         <div class="test">
-            <div class="esport">
-                <p>Esport</p>
-            </div>
-            <div class="f1">
-                <p>F1</p>
-            </div>
-            <div class="foot">
-                <p>Foot</p>
-            </div>
+            <a href="/category?category=Esport">
+                <div class="esport">
+                    <p>Esport</p>
+                </div>
+            </a>
+            <a href="/category?category=Formule 1">
+                <div class="f1">
+                    <p>F1</p>
+                </div>
+            </a>
+            <a href="/category?category=Football">
+                <div class="foot">
+                    <p>Foot</p>
+                </div>
+            </a>
         </div>
     </div>
     <section class="mid">
         {{range .Articles}}
         <div class="article">
             <a href="/article?article={{.Id}}"></a>
-            <img class="article-img" src="{{.SmallImg}}" alt="Petite image d'article">
+            <!--<div class="article-img" style="background-image: url({{.SmallImg}}); background-size: cover; background-position: center; background-repeat: no-repeat"></div>-->
+            <div class="article-img">
+                <img src="{{.SmallImg}}" alt="Petite image d'article">
+            </div>
+
             <h3 class="title-article">{{.Title}}</h3>
-            <p class="article-info">{{.Introduction}}</p>
-            {{end}}
+            <p class="article-info">{{.Author}}</p>
+            <p class="article-info">{{.Date}}</p>
         </div>
+        {{end}}
     </section>
 {{end}}
