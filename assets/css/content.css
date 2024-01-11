@@ -317,6 +317,9 @@ input[type="password"] {
 
 .rectanglemaquette {
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 /* css pour add article */
@@ -477,4 +480,40 @@ input[type="password"] {
 .error-container img{
     width: 450px;
     height: 400px;
+}
+
+/* CSS ADMIN */
+
+.adminbutton {
+    border-radius: 20px;
+    padding: 0.2vw 2vh 0.35vw 2vh;
+    background-color: white;
+    border: none;
+    color: black;
+    font-size: 1.25vw;
+    cursor: pointer;
+    user-select: none;
+    font-weight: 800;
+}
+
+.adminbutton:hover {
+    background-color: #e6e6e6;
+    transform: scale(1.1);
+}
+
+.Addandmodify {
+    padding: 30px;
+}
+
+.modifyarticlebutton {
+    width: 70px;
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0.877);
+    cursor: pointer;
+    color: #fefefe;
+    
+}
+
+.button-detail-article {
+    padding-top: 10px;
 }

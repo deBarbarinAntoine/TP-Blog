@@ -13,4 +13,37 @@
 {{end}}
 
 {{define "body"}}
+    <div class="bodysearch">
+
+    <section class="rectanglesearch">
+     <form action="/search" method="get">
+     <div class="trysearch">
+    <input class="searchbar"type="text" placeholder=" {{.Search}} ">
+    <button type="submit"><box-icon id="iconsearch" name='search-alt-2'></box-icon></button>
+     </div>
+    </form>
+    </section>
+    <div class="Addandmodify">
+    <h1 class="h1search">{{.Message}} </h1>
+    <a href="/addarticle"> <button class="adminbutton"> Ajouter un Article </button> </a>
+     <a href="/modifyuser"> <button class="adminbutton"> Modifier Utilisateur </button> </a>
+     </div>
+    {{range .Articles}}</button>
+        <section class="rectanglecolumn">
+        <a class="asearch"href="/article?article={{.Id}}">
+        <div class="imgsearch">
+        <img class="searchimg" src="{{.SmallImg}}">
+         </div>
+         <div class="infosearch">
+        <div class="h2search">{{.Title}}</div> <br>
+        <div class="h3search">{{.Author}} </div>  
+        <div class="h3search">{{.Date}}</div>  
+        <div class="button-detail-article">
+        <a href="/modifyarticle/treatment?article={{.Id}}"> <button class="modifyarticlebutton"> Modifier l'article </button> </a>
+        <a href="/deletearticle/treatment?article={{.Id}}"> <button class="modifyarticlebutton"> Supprimer l'article </button> </a>
+         </div>
+        </a>
+        </div>
+    </section>
+{{end}}
 {{end}}
