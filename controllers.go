@@ -214,8 +214,8 @@ func loginTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
-	if login(r.FormValue("username"), r.FormValue("password")) {
-		fmt.Println("log: loginTreatment() correct login: welcome ", r.FormValue("username"), "!")
+	if login(r.FormValue("Username"), r.FormValue("Password")) {
+		fmt.Println("log: loginTreatment() correct login: welcome ", r.FormValue("Username"), "!")
 		http.Redirect(w, r, "/admin", http.StatusSeeOther)
 	} else {
 		fmt.Println("log: loginTreatment() incorrect login!")
@@ -290,10 +290,10 @@ func createUserTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
-	confirmPassword := r.FormValue("confirmPassword")
+	confirmPassword := r.FormValue("Password-check")
 	var user = User{
-		Name:     r.FormValue("username"),
-		Password: r.FormValue("password"),
+		Name:     r.FormValue("Username"),
+		Password: r.FormValue("Password"),
 	}
 	if checkUsername(user.Name) {
 		if len(user.Password) > 5 && user.Password == confirmPassword {
