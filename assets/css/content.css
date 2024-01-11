@@ -278,7 +278,7 @@ input[type="password"] {
 
 .rectangleaboutleft {
     background-color: rgba(128, 128, 128, 0.392);
-    width: 400px;
+    width: 250px;
     margin: 50px;
     border-radius: 5px;
     border: 1px solid #000000;
@@ -287,7 +287,7 @@ input[type="password"] {
 
 .rectangleaboutright {
     background-color: rgba(128, 128, 128, 0.392);
-    width: 400px;
+    width: 250px;
     margin: 50px;
     border-radius: 5px;
     border: 1px solid #000000;
@@ -296,7 +296,7 @@ input[type="password"] {
 }
 
 .termandcond {
-    width: 100%;
+    width: 60%;
     color: #fefefe;
     margin-top: 50px;
     margin-bottom: 50px;
@@ -304,15 +304,20 @@ input[type="password"] {
 
 .titreabout {
     font-size: 20px;
-    
 }
 
 .h1about {
     font-size: 35px;
+    margin-top: 60px;
 }
 
 .aboutimg {
-    max-width: 100%;
+    max-width: 50%;
+}
+
+.rectanglemaquette {
     display: flex;
-    
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
