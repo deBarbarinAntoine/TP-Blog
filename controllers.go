@@ -298,12 +298,12 @@ func createUserTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 	if checkUsername(user.Name) {
 		if len(user.Password) > 5 && user.Password == confirmPassword {
 			user.addUser()
-			http.Redirect(w, r, "/user/login", http.StatusSeeOther)
+			http.Redirect(w, r, "/login", http.StatusSeeOther)
 		} else {
-			http.Redirect(w, r, "/user/create?pass=error", http.StatusSeeOther)
+			http.Redirect(w, r, "/createuser?pass=error", http.StatusSeeOther)
 		}
 	} else {
-		http.Redirect(w, r, "/user/create?user=error", http.StatusSeeOther)
+		http.Redirect(w, r, "/createuser?user=error", http.StatusSeeOther)
 	}
 }
 
