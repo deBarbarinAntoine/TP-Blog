@@ -359,6 +359,45 @@ input[type="password"] {
     object-fit: cover;
 }
 
+.img-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* CATEGORY CSS */
+
+.top {
+    display: flex;
+}
+
+#title-article {
+    font-size: 1.5rem;
+    margin-right: 2rem;
+    margin-top: 2rem;
+}
+
+.img-top img {
+    width: 85%;
+    height: 100%;
+    padding: 2rem;
+}
+
+.top-right {
+    background-color: #1E1E1E;
+    border-radius: 15px;
+    margin: 2rem 1rem 1rem 1rem;
+}
+
+#titre-right {
+    margin: 0.5rem 0.5rem 1rem 1rem ;
+    background-color: #343434;
+    padding: 0.25rem;
+    border-radius: 20px;
+}
+
+
+
 /* CSS SEARCH */ 
 
 
