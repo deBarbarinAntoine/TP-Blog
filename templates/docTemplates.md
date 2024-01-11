@@ -66,6 +66,13 @@ data := struct {
         Introduction string
         Content      string
     }
+    Session Session {
+        IsOpen bool
+        MyUser User {
+            Name string
+            Password string
+        }
+    }
 }
 ```
 
@@ -104,6 +111,13 @@ data := struct {
         Introduction string
         Content      string
     }
+    Session Session {
+        IsOpen bool
+        MyUser User {
+            Name string
+            Password string
+        }
+    }
 }
 ```
 - Articles: ``/article?article=<article-id>``
@@ -131,6 +145,13 @@ data := struct {
         Introduction string
         Content      string
     }
+    Session Session {
+        IsOpen bool
+        MyUser User {
+            Name string
+            Password string
+        }
+    }
 }
 ```
 [↑ Return to table of content](#templates)
@@ -157,7 +178,14 @@ data := struct {
         Content      string
     }
     Search  string  // the word searched for
-    Message string  // message if the search doesn't match any content: <div class="message">There is no article matching your research!</div>
+    Message string  // message if the search doesn't match any content: <div class="message">There is no article matching your research!</div> 
+    Session Session {
+        IsOpen bool
+        MyUser User {
+            Name string
+            Password string
+        }
+    }
 }
 ```
 - Articles: ``/article?article=<article-id>``
@@ -174,8 +202,15 @@ data := struct {
         Title      string
         StaticPath string
     }
-    Message string // message if there is a problem logging (username or password): <div class="message">Wrong username or password!</div>
-}                  // also contains a message when redirected from restricted website area without login.
+    Message string      // message if there is a problem logging (username or password): <div class="message">Wrong username or password!</div>
+    Session Session {   // also contains a message when redirected from restricted website area without login.
+        IsOpen bool
+        MyUser User {
+            Name string
+            Password string
+        }
+    }
+}
 ```
 
 - Submit: ``/login/treatment``
@@ -194,6 +229,13 @@ data := struct {
         StaticPath string
     }
     Message string // message if there is a problem signing up (username or password): <div class="message">Username already used!</div>
+    Session Session {
+        IsOpen bool
+        MyUser User {
+            Name string
+            Password string
+        }
+    }
 }
 ```
 
@@ -213,6 +255,13 @@ data := struct {
         StaticPath string
     }
     Message string // message if there is a problem modifying user info (username or password): <div class="message">Invalid data!</div>
+    Session Session {
+        IsOpen bool
+        MyUser User {
+            Name string
+            Password string
+        }
+    }
 }
 ```
 
@@ -242,9 +291,12 @@ data := struct {
         Introduction string
         Content      string
     }
-    User User {
-        Name        string
-        Password    string
+    Session Session {
+        IsOpen bool
+        MyUser User {
+            Name string
+            Password string
+        }
     }
 }
 ```
@@ -266,10 +318,6 @@ data := struct {
         Title      string
         StaticPath string
     }
-    User       User {
-        Name        string
-        Password    string
-    }
     Categories []string     // Containing all category titles: []string{"Formule 1", "Esport", "Football"}
     Article    Article {
         Id           int
@@ -281,6 +329,13 @@ data := struct {
         SmallImg     string
         Introduction string
         Content      string
+    }
+    Session Session {
+        IsOpen bool
+        MyUser User {
+            Name string
+            Password string
+        }
     }
 }
 ```
@@ -310,6 +365,13 @@ data := struct {
         SmallImg     string
         Introduction string
         Content      string
+    }
+    Session Session {
+        IsOpen bool
+        MyUser User {
+            Name string
+            Password string
+        }
     }
 }
 ```
@@ -341,6 +403,13 @@ data := struct {
         Content      string
     }
     Message string  // message asking for confirmation: <div class="message">Do you really want to delete that article ?</div>
+    Session Session {
+        IsOpen bool
+        MyUser User {
+            Name string
+            Password string
+        }
+    }
 }
 ```
 
@@ -359,6 +428,13 @@ data := struct {
         Title      string
         StaticPath string
     }
+    Session Session {
+        IsOpen bool
+        MyUser User {
+            Name string
+            Password string
+        }
+    }
 }
 ```
 [↑ Return to table of content](#templates)
@@ -372,6 +448,13 @@ data := struct {
     Base BaseData {
         Title      string
         StaticPath string
+    }
+    Session Session {
+        IsOpen bool
+        MyUser User {
+            Name string
+            Password string
+        }
     }
 }
 ```
