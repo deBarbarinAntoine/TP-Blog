@@ -1,10 +1,12 @@
 {{define "staticPath"}}{{.Base.StaticPath}}{{end}}
 
+{{define "css"}}<link rel="stylesheet" href="{{.Base.StaticPath}}css/content.css">{{end}}
 {{define "title"}}<title>{{.Base.Title}}</title>{{end}}
 
 
+
 {{define "body"}}
-     <h1> {{.Search}} </h1>
+    <input type="text" placeholder=" {{.Search}} ">
     {{.Message}}
 
     {{range .Articles}}
