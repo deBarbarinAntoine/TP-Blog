@@ -3,4 +3,31 @@
 {{define "title"}}<title>{{.Base.Title}}</title>{{end}}
 
 {{define "body"}}
+    <div class="main-article">
+        <h2 id="article-title">Ajouter un Article : </h2>
+        <div class="article-content">
+            <form action="" method="post">
+                <div class="article-input">
+                    <label id="lab" for="titre">Titre</label>
+                    <input type="text" name="title">
+                </div>
+                <div class="article-input">
+                    <label id="lab" for="categorie">Categorie</label>
+                    <input type="text" name="category">
+                </div>
+                <div class="article-input">
+                    <label id="lab" for="intro">Intro</label>
+                    <input type="text" name="introduction">
+                </div>
+                <div class="article-input test">
+                    <label id="lab" for="contenu">Contenu</label>
+                    <textarea name="content"></textarea>
+                </div>
+                <div class="article-button">
+                    <button type="submit">submit</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
 {{end}}
