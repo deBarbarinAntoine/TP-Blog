@@ -114,7 +114,7 @@ func articleHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	data := struct {
 		Base        BaseData
-		Article     Article
+		Article     ArticleHTML
 		Recommended []Article
 		Session     Session
 	}{
@@ -122,12 +122,10 @@ func articleHandler(w http.ResponseWriter, r *http.Request) {
 			Title:      article.Title,
 			StaticPath: "static/",
 		},
-		Article:     article,
+		Article:     formatArticle(article),
 		Recommended: selectCategory(article.Category)[:5],
 		Session:     mySession,
 	}
-	fmt.Printf("log: data before formatArticle(): %#v\n", data) // testing
-	data.Article.Content = formatArticle(article)
 	fmt.Printf("log: data: %#v\n", data) // testing
 	err = tmpl["article"].ExecuteTemplate(w, "base", data)
 	if err != nil {
