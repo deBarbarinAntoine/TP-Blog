@@ -4,6 +4,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="{{template "staticPath" .}}logo_detoure.png">
     <link rel="stylesheet" href="{{template "staticPath" .}}css/style.css">
     {{template  "css" .}}
     {{template "title" .}}
@@ -21,14 +22,14 @@
                     <div class="log">
                         {{template "header-btn" .}}
                     </div>
-                    <form action="/votre-page-de-recherche" method="get">
+                    <form action="/search" method="get">
                         <div class="try">
                             <input id="bar" type="text" name="q" placeholder=" Type...">
                             <button type="submit"><box-icon id="icon" name='search-alt-2'></box-icon></button>
                         </div>
                     </form>
                 </div>
-                <a href="/index"><img id="logo" src="static/img/logo_detoure.png" alt=""></a>
+                <a href="/index"><img id="logo" src="static/img/logo_detoure.png" alt="Sport Pulse logo"></a>
             </div>
         </div>
     </header>
@@ -49,12 +50,12 @@
                 </ul>
             </div>
             <div class="footer-logo">
-                <img src="static/img/logo_detoure.png" alt="">
+                <img src="static/img/logo_detoure.png" alt="Sport Pulse logo">
             </div>
             <div class="footer-mention">
                 <div class="footer-mention-content">
-                    <p>About</p>
-                    <p>Terms and conditions</p>
+                    <a href="/about"><p>About</p></a>
+                    <a href="/about#legal"><p>Terms and conditions</p></a>
                 </div>
                 <div class="footer-mention-copy">
                     <p>Copyright ©️ 2024, Sport Pulse. <br> All Right Reserved</p>
