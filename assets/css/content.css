@@ -255,3 +255,52 @@ input[type="password"] {
     font-weight: 600;
     text-decoration: none;
 }
+
+/* CSS ABOUT */ 
+
+.bodyabout {
+    background-color: rgba(0, 0, 0, 0.877);
+    display: flex;
+    flex-direction: row;
+}
+
+.rectangleaboutleft {
+    background-color: rgba(128, 128, 128, 0.392);
+    width: 400px;
+    margin: 50px;
+    border-radius: 5px;
+    border: 1px solid #000000;
+    box-shadow: 2px 2px 5px rgba(0,0,0,15);
+}
+
+.rectangleaboutright {
+    background-color: rgba(128, 128, 128, 0.392);
+    width: 400px;
+    margin: 50px;
+    border-radius: 5px;
+    border: 1px solid #000000;
+    box-shadow: -2px 2px 5px rgba(0,0,0,15);
+   
+}
+
+.termandcond {
+    width: 100%;
+    color: #fefefe;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.titreabout {
+    font-size: 20px;
+    
+}
+
+.h1about {
+    font-size: 35px;
+}
+
+.aboutimg {
+    max-width: 100%;
+    display: flex;
+    
+}
