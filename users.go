@@ -51,7 +51,7 @@ func retrieveUsers() ([]User, error) {
 	usersJson = append([]byte{'[', '\n'}, usersJson...)
 	usersJson = append(usersJson, '\n', ']')
 
-	fmt.Printf("usersJson: %v\n", string(usersJson))
+	//fmt.Printf("usersJson: %v\n", string(usersJson)) // testing
 
 	err = json.Unmarshal(usersJson, &users)
 	if err != nil {
@@ -81,7 +81,7 @@ func checkUsername(username string) bool {
 
 // login checks if the username and password matches a registered user and initialises the session with those values.
 func login(username, password string) bool {
-	fmt.Println("login function called")
+	//fmt.Println("login function called") // testing
 	users, err := retrieveUsers()
 	if err != nil {
 		log.Fatal(err)
@@ -121,7 +121,7 @@ func (user *User) addUser() {
 			log.Fatal(err)
 		}
 	} else {
-		fmt.Println("writing newline...")
+		//fmt.Println("writing newline...") // testing
 		_, err = file.Write([]byte{'\n'})
 		if err != nil {
 			log.Fatal(err)
@@ -129,7 +129,7 @@ func (user *User) addUser() {
 	}
 	newEntry = append([]byte{'\n'}, newEntry...)
 	newEntry = append([]byte(firstContent()), newEntry...)
-	fmt.Println(string(newEntry))
+	//fmt.Println(string(newEntry)) // testing
 	newEntry = []byte(Encrypt(string(newEntry)))
 	_, err = file.Write(newEntry)
 	if err != nil {
@@ -195,7 +195,7 @@ func (session *Session) Close() {
 	session.MyUser.Name = ""
 	session.MyUser.Password = ""
 	fmt.Println("session closed")
-	fmt.Printf("%#v\n", session)
+	//fmt.Printf("%#v\n", session) // testing
 }
 
 // First line in the accounts file (used to encypt data).

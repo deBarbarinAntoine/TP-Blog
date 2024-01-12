@@ -18,7 +18,7 @@ body {
 }
 
 .test img {
-    border-radius: 10px;
+    border-radius: 20px;
     width: 450px;
     height: 550px;
     cursor: pointer;
@@ -143,7 +143,7 @@ body {
     width: 350px;
     height: 450px;
     margin: 0 auto;
-    border-radius: 10px;
+    border-radius: 20px;
     border: solid 1px white;
     background-color: black;
 }
@@ -635,21 +635,24 @@ input[type="password"] {
 .modifyarticlebutton {
     width: 165px;
     height: 42px;
-    background-color: rgba(0, 170, 0, 0.877);
+    background-color: white;
+    border: 1px solid black;
     border-radius: 1rem;
     font-size: 1.1rem;
+    font-weight: 700;
     cursor: pointer;
-    color: yellow;
+    color: black;
 }
 
 .deletearticlebutton {
     width: 165px;
     height: 42px;
-    background-color: rgba(170, 0, 0, 0.877);
+    background-color: black;
     border-radius: 1rem;
     font-size: 1.1rem;
     cursor: pointer;
-    color: orange;
+    color: white;
+    font-weight: 700;
 }
 
 .button-detail-article {

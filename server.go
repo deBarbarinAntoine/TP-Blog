@@ -35,7 +35,7 @@ func runServer() {
 	fmt.Println("If the navigator didn't open on its own, just go to ", url, " on your browser.")
 	isRunning := true
 	for isRunning {
-		fmt.Print("If you want to end the server, type 'stop' here :")
+		fmt.Println("If you want to end the server, type 'stop' here :")
 		var command string
 		fmt.Scanln(&command)
 		if command == "stop" {

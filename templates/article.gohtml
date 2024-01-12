@@ -34,7 +34,7 @@
             </div>
             <div class="top-right">
                 <div class="title">
-                    <h3>Nos nouveaux articles</h3>
+                    <h3>Nos articles similaires</h3>
                 </div>
                 {{range.Recommended}}
                     <div>
@@ -46,9 +46,9 @@
             </div>
         </div>
         <div class="article-ctn">
-            <h2>{{.Article.Introduction}}</h2>
             <h3>{{.Article.Author}}</h3>
             <p> {{.Article.Date}}</p>
+            <h2>{{.Article.Introduction}}</h2>
             <article>{{.Article.Content}}</article>
         </div>
     </div>
