@@ -13,10 +13,14 @@
 {{end}}
 
 {{define "body"}}
-    <section>
-        <h1>Do you really want to remove the article:</h1>
-        <h3>{{.Article.Title}}</h3>
-        <a class="oui" href="/deletearticle/treatment?article={{.Article.Id}}">Remove</a>
-        <a class="non" href="/admin">Cancel</a>
+    <section class="delete">
+        <div class="delete-title">
+            <h1>Do you really want to remove the article:</h1>
+            <h3>{{.Article.Title}}</h3>
+        </div>
+        <div class="delete-button">
+            <a class="oui" href="/deletearticle/treatment?article={{.Article.Id}}"> <button>Remove</button> </a>
+            <a class="non" href="/admin"> <button>Cancel</button> </a>
+        </div>
     </section>
 {{end}}

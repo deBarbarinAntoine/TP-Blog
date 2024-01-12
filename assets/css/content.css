@@ -666,3 +666,43 @@ input[type="password"] {
     text-align: center;
     margin: .5rem 0;
 }
+
+/* css delete article */
+
+.delete{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.delete-button{
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 3rem;
+    gap: 2rem;
+}
+
+.delete-button button{
+    border-radius: 30px;
+    padding: 0.3vw 3vh 0.30vw 3vh;
+    background-color: white;
+    border: none;
+    color: black;
+    font-size: 1.5vw;
+    cursor: pointer;
+    user-select: none;
+    font-weight: 850;
+}
+
+.delete-title{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 65%;
+    gap: 1.5rem;
+    padding: 1.7rem;
+    border-radius: 1rem;
+    background-color: #2b2d30;
+    margin-top: 2rem;
+}
