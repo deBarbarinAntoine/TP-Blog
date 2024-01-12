@@ -635,21 +635,24 @@ input[type="password"] {
 .modifyarticlebutton {
     width: 165px;
     height: 42px;
-    background-color: rgba(0, 170, 0, 0.877);
+    background-color: white;
+    border: 1px solid black;
     border-radius: 1rem;
     font-size: 1.1rem;
+    font-weight: 700;
     cursor: pointer;
-    color: yellow;
+    color: black;
 }
 
 .deletearticlebutton {
     width: 165px;
     height: 42px;
-    background-color: rgba(170, 0, 0, 0.877);
+    background-color: black;
     border-radius: 1rem;
     font-size: 1.1rem;
     cursor: pointer;
-    color: orange;
+    color: white;
+    font-weight: 700;
 }
 
 .button-detail-article {
