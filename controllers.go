@@ -415,7 +415,6 @@ func adminHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal("log: retrieveArticles() error!\n", err)
 	}
-	adminGuard(w, r)
 	data := struct {
 		Base     BaseData
 		Articles []Article
