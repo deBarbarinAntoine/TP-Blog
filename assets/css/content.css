@@ -229,10 +229,11 @@ a:hover {
 
 .btn-box {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
-.btn-box button {
+.btn-box button, .btn-box a {
     padding: 0.5rem 1.5rem;
     border-radius: 50px;
     outline: none;
@@ -244,16 +245,17 @@ a:hover {
     text-align: center;
     color: #5f3dc4;
     font-size: 1vw;
+    margin: .5rem 0;
 }
 
-.btn-box:hover button {
+.btn-box:hover button, .btn-box:hover a {
     background-color: #5f3dc4;
     color: #fff;
 }
 
-.btn-box a:hover {
-    opacity: 0.8;
-}
+/*.btn-box a:hover {*/
+/*    opacity: 0.8;*/
+/*}*/
 
 .register {
     display: flex;
