@@ -6,7 +6,6 @@ import (
 	"crypto/rand"
 	"encoding/base64"
 	"encoding/hex"
-	"fmt"
 	"io"
 )
 
@@ -85,6 +84,6 @@ func Decrypt(data string) string {
 	stream := cipher.NewCFBDecrypter(cipherBlock, iv)
 
 	stream.XORKeyStream(cipherInfo, cipherInfo)
-	fmt.Println(string(cipherInfo))
+	//fmt.Println(string(cipherInfo)) // testing
 	return string(cipherInfo)
 }

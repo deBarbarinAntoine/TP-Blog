@@ -13,7 +13,7 @@ var mySession Session
 
 // rootHandler redirects to index handler.
 func rootHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
+	//fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
 	if r.URL.Path != "/" {
 		errorHandler(w, r, http.StatusNotFound)
 		return
@@ -23,7 +23,7 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 
 // Index page handler.
 func indexHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
+	//fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
 	if r.URL.Path != "/index" {
 		errorHandler(w, r, http.StatusNotFound)
 		return
@@ -53,7 +53,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 //
 // query params: ?category=<category-name>
 func categoryHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
+	//fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
 	if r.URL.Path != "/category" {
 		errorHandler(w, r, http.StatusNotFound)
 		return
@@ -82,7 +82,7 @@ func categoryHandler(w http.ResponseWriter, r *http.Request) {
 		Category:    articles[1:],
 		Session:     mySession,
 	}
-	fmt.Printf("log: data: %#v\n", data) // testing
+	//fmt.Printf("log: data: %#v\n", data) // testing
 	err := tmpl["category"].ExecuteTemplate(w, "base", data)
 	if err != nil {
 		log.Fatal(err)
@@ -95,7 +95,7 @@ func categoryHandler(w http.ResponseWriter, r *http.Request) {
 //
 // Query params: ?article=<article-id>
 func articleHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
+	//fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
 	if r.URL.Path != "/article" {
 		errorHandler(w, r, http.StatusNotFound)
 		return
@@ -127,7 +127,7 @@ func articleHandler(w http.ResponseWriter, r *http.Request) {
 		Recommended: selectCategory(article.Category)[:5],
 		Session:     mySession,
 	}
-	fmt.Printf("log: data: %#v\n", data) // testing
+	//fmt.Printf("log: data: %#v\n", data) // testing
 	err = tmpl["article"].ExecuteTemplate(w, "base", data)
 	if err != nil {
 		log.Fatal(err)
@@ -171,7 +171,7 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 		Message:  message,
 		Session:  mySession,
 	}
-	fmt.Printf("log: data: %#v\n", data) // testing
+	//fmt.Printf("log: data: %#v\n", data) // testing
 	err := tmpl["search"].ExecuteTemplate(w, "base", data)
 	if err != nil {
 		log.Fatal(err)
@@ -184,7 +184,7 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 //
 // Optional query params: ?status=<error>	(error: "error" or "restricted")
 func loginHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
+	//fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
 	if r.URL.Path != "/login" {
 		errorHandler(w, r, http.StatusNotFound)
 		return
@@ -209,7 +209,7 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 		Message: message,
 		Session: mySession,
 	}
-	fmt.Printf("log: data: %#v\n", data) // testing
+	//fmt.Printf("log: data: %#v\n", data) // testing
 	err := tmpl["login"].ExecuteTemplate(w, "base", data)
 	if err != nil {
 		log.Fatal(err)
@@ -221,7 +221,7 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 // checks the form values sent by loginHandler to open the session and redirect to adminHandler
 // or redirect to loginHandler with query params: ?status=error
 func loginTreatmentHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
+	//fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
 	if r.URL.Path != "/login/treatment" {
 		errorHandler(w, r, http.StatusNotFound)
 		return
@@ -241,7 +241,7 @@ func loginTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 // close and clear the Session opened.
 // It also clears the cache so that the Session can be closed.
 func logoutHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
+	//fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
 	if r.URL.Path != "/logout" {
 		errorHandler(w, r, http.StatusNotFound)
 		return
@@ -261,7 +261,7 @@ func logoutHandler(w http.ResponseWriter, r *http.Request) {
 //
 // Optional query params: ?pass=error or ?user=error
 func createUserHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
+	//fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
 	if r.URL.Path != "/createuser" {
 		errorHandler(w, r, http.StatusNotFound)
 		return
@@ -288,7 +288,7 @@ func createUserHandler(w http.ResponseWriter, r *http.Request) {
 		Message: message,
 		Session: mySession,
 	}
-	fmt.Printf("log: data: %#v\n", data) // testing
+	//fmt.Printf("log: data: %#v\n", data) // testing
 	err := tmpl["createuser"].ExecuteTemplate(w, "base", data)
 	if err != nil {
 		log.Fatal(err)
@@ -301,7 +301,7 @@ func createUserHandler(w http.ResponseWriter, r *http.Request) {
 //
 // In case of invalid values, it redirects to createUserHandler with ?pass=error or ?user=error query params.
 func createUserTreatmentHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
+	//fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
 	if r.URL.Path != "/createuser/treatment" {
 		errorHandler(w, r, http.StatusNotFound)
 		return
@@ -330,7 +330,7 @@ func createUserTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 //
 // Optional query params: ?status=error
 func modifyUserHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
+	//fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
 	if r.URL.Path != "/modifyuser" {
 		errorHandler(w, r, http.StatusNotFound)
 		return
@@ -352,7 +352,7 @@ func modifyUserHandler(w http.ResponseWriter, r *http.Request) {
 		Message: message,
 		Session: mySession,
 	}
-	fmt.Printf("log: data: %#v\n", data) // testing
+	//fmt.Printf("log: data: %#v\n", data) // testing
 	err := tmpl["modifyuser"].ExecuteTemplate(w, "base", data)
 	if err != nil {
 		log.Fatal(err)
@@ -365,14 +365,14 @@ func modifyUserHandler(w http.ResponseWriter, r *http.Request) {
 //
 // If new info is invalid, it redirects to modifyUserHandler with ?status=error query params.
 func modifyUserTreatmentHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
+	//fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
 	if r.URL.Path != "/modifyuser/treatment" {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
 	adminGuard(w, r)
 	if r.Method == http.MethodPost {
-		fmt.Println("log: modifyUserTreatment() update user")
+		//fmt.Println("log: modifyUserTreatment() update user")
 		username := r.FormValue("Username")
 		newPassword := r.FormValue("newPassword")
 		if (checkUsername(username) || username == mySession.MyUser.Name) && mySession.MyUser.Password == r.FormValue("Password") && len(newPassword) > 5 {
@@ -405,7 +405,7 @@ func modifyUserTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 // shows all Article and permits access to addArticleHandler, modifyArticleHandler and deleteArticleHandler
 // for each Article shown.
 func adminHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
+	//fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
 	if r.URL.Path != "/admin" {
 		errorHandler(w, r, http.StatusNotFound)
 		return
@@ -428,7 +428,7 @@ func adminHandler(w http.ResponseWriter, r *http.Request) {
 		Articles: articles,
 		Session:  mySession,
 	}
-	fmt.Printf("log: data: %#v\n", data) // testing
+	//fmt.Printf("log: data: %#v\n", data) // testing
 	err = tmpl["admin"].ExecuteTemplate(w, "base", data)
 	if err != nil {
 		log.Fatal(err)
@@ -439,7 +439,7 @@ func adminHandler(w http.ResponseWriter, r *http.Request) {
 //
 // takes the new Article info to send it to addArticleTreatmentHandler via Post Method.
 func addArticleHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
+	//fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
 	if r.URL.Path != "/addarticle" {
 		errorHandler(w, r, http.StatusNotFound)
 		return
@@ -469,7 +469,7 @@ func addArticleHandler(w http.ResponseWriter, r *http.Request) {
 		},
 		Session: mySession,
 	}
-	fmt.Printf("log: data: %#v\n", data) // testing
+	//fmt.Printf("log: data: %#v\n", data) // testing
 	err := tmpl["addarticle"].ExecuteTemplate(w, "base", data)
 	if err != nil {
 		log.Fatal(err)
@@ -480,7 +480,7 @@ func addArticleHandler(w http.ResponseWriter, r *http.Request) {
 //
 // runs addArticle to save the new Article in the json data file (articles.json).
 func addArticleTreatmentHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
+	//fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
 	if r.URL.Path != "/addarticle/treatment" {
 		errorHandler(w, r, http.StatusNotFound)
 		return
@@ -498,7 +498,7 @@ func addArticleTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 		Content:      r.FormValue("content"),
 	}
 	addArticle(newCtn)
-	fmt.Printf("log: newCtn: %#v\n", newCtn) // testing
+	//fmt.Printf("log: newCtn: %#v\n", newCtn) // testing
 	http.Redirect(w, r, "/admin", http.StatusSeeOther)
 }
 
@@ -509,7 +509,7 @@ func addArticleTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 //
 // Query params: ?article=<article-id>
 func modifyArticleHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
+	//fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
 	if r.URL.Path != "/modifyarticle" {
 		errorHandler(w, r, http.StatusNotFound)
 		return
@@ -542,7 +542,7 @@ func modifyArticleHandler(w http.ResponseWriter, r *http.Request) {
 		Article:    article,
 		Session:    mySession,
 	}
-	fmt.Printf("log: data: %#v\n", data) // testing
+	//fmt.Printf("log: data: %#v\n", data) // testing
 	err = tmpl["modifyarticle"].ExecuteTemplate(w, "base", data)
 	if err != nil {
 		log.Fatal(err)
@@ -556,7 +556,7 @@ func modifyArticleHandler(w http.ResponseWriter, r *http.Request) {
 //
 // Query params: ?article=<article-id>
 func modifyArticleTreatmentHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
+	//fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
 	if r.URL.Path != "/modifyarticle/treatment" {
 		errorHandler(w, r, http.StatusNotFound)
 		return
@@ -595,7 +595,7 @@ func modifyArticleTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 			Content:      r.FormValue("content"),
 		}
 		modifyArticle(newCtn)
-		fmt.Printf("log: updatedCtn: %#v\n", newCtn) // testing
+		//fmt.Printf("log: updatedCtn: %#v\n", newCtn) // testing
 		http.Redirect(w, r, "/admin", http.StatusSeeOther)
 	}
 }
@@ -607,7 +607,7 @@ func modifyArticleTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 //
 // Query params: ?article=<article-id>
 func deleteArticleHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
+	//fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
 	if r.URL.Path != "/deletearticle" {
 		errorHandler(w, r, http.StatusNotFound)
 		return
@@ -640,7 +640,7 @@ func deleteArticleHandler(w http.ResponseWriter, r *http.Request) {
 		Message: "<div class=\"message\">Do you really want to delete that article ?</div>",
 		Session: mySession,
 	}
-	fmt.Printf("log: data: %#v\n", data) // testing
+	//fmt.Printf("log: data: %#v\n", data) // testing
 	err = tmpl["deletearticle"].ExecuteTemplate(w, "base", data)
 	if err != nil {
 		log.Fatal(err)
@@ -654,7 +654,7 @@ func deleteArticleHandler(w http.ResponseWriter, r *http.Request) {
 //
 // Query params: ?article=<article-id>
 func deleteArticleTreatmentHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
+	//fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
 	if r.URL.Path != "/deletearticle/treatment" {
 		errorHandler(w, r, http.StatusNotFound)
 		return
@@ -676,7 +676,7 @@ func deleteArticleTreatmentHandler(w http.ResponseWriter, r *http.Request) {
 //
 // shows the website map and info and all Terms and Conditions.
 func aboutHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
+	//fmt.Printf("log: UrlPath: %#v\n", r.URL.Path) // testing
 	if r.URL.Path != "/about" {
 		errorHandler(w, r, http.StatusNotFound)
 		return
@@ -691,7 +691,7 @@ func aboutHandler(w http.ResponseWriter, r *http.Request) {
 		},
 		Session: mySession,
 	}
-	fmt.Printf("log: data: %#v\n", data) // testing
+	//fmt.Printf("log: data: %#v\n", data) // testing
 	err := tmpl["about"].ExecuteTemplate(w, "base", data)
 	if err != nil {
 		log.Fatal(err)
@@ -704,7 +704,7 @@ func aboutHandler(w http.ResponseWriter, r *http.Request) {
 // It is called whenever the url is unknown or incorrect.
 func errorHandler(w http.ResponseWriter, r *http.Request, status int) {
 	w.WriteHeader(status)
-	fmt.Printf("log: status: %#v\n", status) // testing
+	//fmt.Printf("log: status: %#v\n", status) // testing
 	if status == http.StatusNotFound {
 		data := struct {
 			Base    BaseData
@@ -716,7 +716,7 @@ func errorHandler(w http.ResponseWriter, r *http.Request, status int) {
 			},
 			Session: mySession,
 		}
-		fmt.Printf("log: data: %#v\n", data) // testing
+		//fmt.Printf("log: data: %#v\n", data) // testing
 		err := tmpl["error404"].ExecuteTemplate(w, "base", data)
 		if err != nil {
 			log.Fatal(err)
