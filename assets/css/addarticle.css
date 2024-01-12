@@ -67,16 +67,22 @@ body {
     justify-content: center;
 }
 
-.article-button button {
+.article-button button, .article-button a {
+    text-decoration: none;
+    text-underline: none;
+    text-align: center;
+    margin: .5rem 0;
     border-radius: 25px;
     width: 10vw;
     height: 3vh;
+    line-height: 3vh;
     background-color: #5f3dc4;
     color: white;
     border: none;
+    font-size: 1rem;
 }
 
-.article-button button:hover {
+.article-button button:hover, .article-button a:hover {
     background-color: #3c1f94;
     cursor: pointer;
 }
@@ -97,7 +103,7 @@ body {
         border-radius: 20px;
     }
 
-    .article-button button {
+    .article-button button, .article-button a {
         width: 12vw;
         height: 3vh;
     }

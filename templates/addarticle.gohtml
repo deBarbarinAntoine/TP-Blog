@@ -16,12 +16,13 @@
     <div class="main-article">
         <h2 id="article-title">Add a new article : </h2>
         <div class="article-content">
-            <form action="" method="post">
+            <form action="/addarticle/treatment" method="post">
                 <div class="article-input">
                     <label id="lab" for="titre">Title</label>
-                    <input type="text" name="title">
+                    <input type="text" name="title" required autofocus>
                 </div>
                 <div class="article-input">
+                    <span>Category </span>
                     <select name="category" id="category">
                         {{range .Categories}}
                             <option value="{{.}}">{{.}}</option>
@@ -30,24 +31,26 @@
                 </div>
                 <div class="article-input">
                     <label id="lab" for="intro">Introduction</label>
-                    <input type="text" name="introduction">
+                    <input type="text" name="introduction" required>
                 </div>
                 <div class="article-input">
                     <label id="lab" for="smallImg">Small image</label>
-                    <input type="text" name="smallImg">
+                    <input type="text" name="smallImg" required>
                 </div>
                 <div class="article-input">
                     <label id="lab" for="bigImg">Big image</label>
-                    <input type="text" name="bigImg">
+                    <input type="text" name="bigImg" required>
                 </div>
                 <div class="article-input test">
                     <label id="lab" for="contenu">Content</label>
-                    <textarea name="content"></textarea>
+                    <textarea name="content" required></textarea>
                 </div>
                 <div class="article-button">
                     <button type="submit">Submit</button>
                 </div>
-
+                <div class="article-button">
+                    <a href="/admin">Cancel</a>
+                </div>
             </form>
         </div>
     </div>

@@ -17,8 +17,10 @@
         <form action="/createuser/treatment" class="form" method="post">
             <h3>Sign up</h3>
 
+            {{.Message}}
+
             <div class="username">
-                <input type="text" id="username" name="Username" placeholder="Username" required />
+                <input type="text" id="username" name="Username" placeholder="Username" required autofocus />
                 <ion-icon name="person"></ion-icon>
             </div>
 
@@ -46,5 +48,4 @@
             </div>
         </form>
     </main>
-
 {{end}}

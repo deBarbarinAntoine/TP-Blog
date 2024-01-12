@@ -1,5 +1,5 @@
 {{define "staticPath"}}{{.Base.StaticPath}}{{end}}
-{{define "css"}}<link rel="stylesheet" href="{{.Base.StaticPath}}css/content.css">{{end}}
+{{define "css"}}<link rel="stylesheet" href="{{.Base.StaticPath}}css/addarticle.css">{{end}}
 {{define "title"}}<title>{{.Base.Title}}</title>{{end}}
 
 {{define "header-btn"}}
@@ -13,4 +13,50 @@
 {{end}}
 
 {{define "body"}}
+    <div class="main-article">
+        <h2 id="article-title">Modify an article : </h2>
+        <div class="article-content">
+            <form action="/modifyarticle/treatment?article={{.Article.Id}}" method="post">
+                <div style="display: none">
+                    <input type="text" id="id" name="id" value="{{.Article.Id}}" required readonly />
+                </div>
+                <div class="article-input">
+                    <label id="lab" for="titre">Title</label>
+                    <input type="text" name="title" value="{{.Article.Title}}" required autofocus>
+                </div>
+                <div class="article-input">
+                    <span>Category </span>
+                    <select name="category" id="category">
+                        {{$currentCategory := .Article.Category}}
+                        {{range .Categories}}
+                            {{$category := .}}
+                            <option value="{{.}}" {{if eq $currentCategory $category}}selected{{end}}>{{.}}</option>
+                        {{end}}
+                    </select>
+                </div>
+                <div class="article-input">
+                    <label id="lab" for="intro">Introduction</label>
+                    <input type="text" name="introduction" value="{{.Article.Introduction}}" required>
+                </div>
+                <div class="article-input">
+                    <label id="lab" for="smallImg">Small image</label>
+                    <input type="text" name="smallImg" value="{{.Article.SmallImg}}" required>
+                </div>
+                <div class="article-input">
+                    <label id="lab" for="bigImg">Big image</label>
+                    <input type="text" name="bigImg" value="{{.Article.BigImg}}" required>
+                </div>
+                <div class="article-input test">
+                    <label id="lab" for="contenu">Content</label>
+                    <textarea name="content" value="{{.Article.Content}}" required></textarea>
+                </div>
+                <div class="article-button">
+                    <button type="submit">Submit</button>
+                </div>
+                <div class="article-button">
+                    <a href="/admin">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
 {{end}}
