@@ -182,7 +182,8 @@ p {
 
 input[placeholder="Username"],
 input[placeholder="Password"],
-input[placeholder="Confirm Password"] {
+input[placeholder="Confirm Password"],
+input[placeholder="New Password"] {
     padding: 0.75rem 1.5rem;
     outline: none;
     border-style: none;
