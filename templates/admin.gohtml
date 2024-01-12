@@ -14,9 +14,11 @@
 
 {{define "body"}}
     <div class="bodysearch">
-        <div class="Addandmodify">
-            <a href="/addarticle"> <button class="adminbutton"> Ajouter un Article </button> </a>
-            <a href="/modifyuser"> <button class="adminbutton"> Modifier Utilisateur </button> </a>
+        <div class="admin-actions">
+            <div class="Addandmodify">
+                <a href="/addarticle"> <button class="adminbutton"> Ajouter un Article </button> </a>
+                <a href="/modifyuser"> <button class="adminbutton"> Modifier Utilisateur </button> </a>
+            </div>
         </div>
         {{range .Articles}}
             <section class="rectanglecolumn">
@@ -24,13 +26,13 @@
                     <div class="imgsearch">
                         <img class="searchimg" src="{{.SmallImg}}">
                     </div>
-                    <div class="infosearch">
+                    <div class="infosearch admin-info">
                         <div class="h2search">{{.Title}}</div> <br>
                         <div class="h3search">{{.Author}} </div>
                         <div class="h3search">{{.Date}}</div>
                         <div class="button-detail-article">
                             <a href="/modifyarticle?article={{.Id}}"> <button class="modifyarticlebutton"> Modifier l'article </button> </a>
-                            <a href="/deletearticle?article={{.Id}}"> <button class="modifyarticlebutton"> Supprimer l'article </button> </a>
+                            <a href="/deletearticle?article={{.Id}}"> <button class="deletearticlebutton"> Supprimer l'article </button> </a>
                         </div>
                     </div>
                 </a>

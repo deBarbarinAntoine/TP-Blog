@@ -13,4 +13,35 @@
 {{end}}
 
 {{define "body"}}
+    <main class="box">
+        <form action="/modifyuser/treatment" class="form" method="post">
+            <h3>Modify user information</h3>
+
+            {{.Message}}
+
+            <div class="username">
+                <input type="text" id="username" name="Username" placeholder="Username" value="{{.Session.MyUser.Name}}" required />
+                <ion-icon name="person"></ion-icon>
+            </div>
+
+            <div class="password">
+                <input type="password" id="password" name="Password" placeholder="Password" required autofocus />
+                <ion-icon name="lock-closed"></ion-icon>
+            </div>
+
+            <div class="password">
+                <input type="password" id="newPassword" name="newPassword" placeholder="New Password" required />
+                <ion-icon name="lock-closed"></ion-icon>
+            </div>
+
+
+            <div class="btn-box">
+                <button type="submit">Modify</button>
+            </div>
+
+            <div class="btn-box">
+                <button ><a href="/admin">Cancel</a></button>
+            </div>
+        </form>
+    </main>
 {{end}}

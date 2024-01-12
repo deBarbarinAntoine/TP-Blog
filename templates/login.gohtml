@@ -14,12 +14,13 @@
 
 {{define "body"}}
     <main class="box">
-
         <form action="/login/treatment" class="form" method="post">
             <h3>Login</h3>
 
+            {{.Message}}
+
             <div class="username">
-                <input type="text" id="username" name="Username" placeholder="Username" required />
+                <input type="text" id="username" name="Username" placeholder="Username" required autofocus />
                 <ion-icon name="person"></ion-icon>
             </div>
 

@@ -324,11 +324,31 @@ input[type="password"] {
 
 /* css pour add article */
 .all-article{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     color: white;
 }
 
 .article-ctn{
     margin: 1rem 2rem;
+    display: flex;
+    flex-direction: column;
+    width: 92%;
+    gap: .2rem;
+    padding: 2.5rem;
+    border-radius: 1rem;
+    background-color: #2b2d30;
+}
+
+.article-ctn p {
+    margin: 0 auto;
+    margin-bottom: 2.5rem;
+    font-style: italic;
+}
+
+.article-ctn article {
+    text-align: justify;
 }
 
 .ctn-title1{
@@ -349,7 +369,7 @@ input[type="password"] {
 /* css article index */
 
 .mid{
-    padding-top: 15%;
+    padding-top: 5%;
     display: flex;
     margin: 3rem 0;
     flex-wrap: wrap;
@@ -365,7 +385,6 @@ input[type="password"] {
     padding: .6rem;
     border-radius: 1rem;
     background-color: #2b2d30;
-
 }
 
 .article-img {
@@ -390,6 +409,7 @@ input[type="password"] {
 
 .top {
     display: flex;
+    justify-content: space-evenly;
 }
 
 #title-article {
@@ -402,6 +422,7 @@ input[type="password"] {
     width: 85%;
     height: 100%;
     padding: 2rem;
+    border-radius: 3rem;
 }
 
 .top-right {
@@ -561,19 +582,55 @@ input[type="password"] {
     transform: scale(1.1);
 }
 
+.admin-actions {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
 .Addandmodify {
+    width: 35%;
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
     padding: 30px;
 }
 
+.admin-info {
+    width: 615px;
+}
+
 .modifyarticlebutton {
-    width: 70px;
-    height: 40px;
-    background-color: rgba(0, 0, 0, 0.877);
+    width: 165px;
+    height: 42px;
+    background-color: rgba(0, 170, 0, 0.877);
+    border-radius: 1rem;
+    font-size: 1.1rem;
     cursor: pointer;
-    color: #fefefe;
-    
+    color: yellow;
+}
+
+.deletearticlebutton {
+    width: 165px;
+    height: 42px;
+    background-color: rgba(170, 0, 0, 0.877);
+    border-radius: 1rem;
+    font-size: 1.1rem;
+    cursor: pointer;
+    color: orange;
 }
 
 .button-detail-article {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
     padding-top: 10px;
+}
+
+/*   message (login, createuser, modifyuser, search)   */
+.message {
+    color: orangered;
+    font-size: 1.2rem;
+    text-align: center;
+    margin: .5rem 0;
 }

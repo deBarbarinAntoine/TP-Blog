@@ -89,6 +89,7 @@ func getIdNewArticle() int {
 			}
 		}
 	}
+	id--
 	return id
 }
 
