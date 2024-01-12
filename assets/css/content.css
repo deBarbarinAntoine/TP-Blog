@@ -585,7 +585,7 @@ input[type="password"] {
     justify-content: space-around;
     margin-top: 11%;
     font-family: "Poppins", sans-serif;
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
 
 .error-container h2{
