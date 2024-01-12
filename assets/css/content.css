@@ -387,6 +387,12 @@ input[type="password"] {
     background-color: #2b2d30;
 }
 
+.center-article-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .article-img {
     border-radius: .5rem;
     width: 250px;
