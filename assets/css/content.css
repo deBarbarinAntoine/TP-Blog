@@ -583,15 +583,12 @@ input[type="password"] {
 
 .error-container {
     display: flex;
-    justify-content: space-around;
     margin-top: 11%;
     font-family: "Poppins", sans-serif;
-    justify-content: space-evenly;
+    justify-content: center;
+
 }
 
-.error-container h2{
-    color: white;
-}
 
 .error-container img{
     width: 450px;
