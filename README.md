@@ -20,7 +20,7 @@ You can also see the [Figma map](https://www.figma.com/file/Uz7Io6pV5LruYHPN2t2K
 
 ### First method (running the executable file - only for windows users) :
 
-Download the executable ```SportPulse.exe``` in ```exec``` folder, then run it on your computer.
+Download the executable ```SportPulse.exe``` clicking on **<kbd>SportPulse v1.0</kbd>** in the ```Release``` section, then run it on your computer.
 
 ---
 
