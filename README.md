@@ -4,6 +4,13 @@
 
 This TP-Blog project is an assignment done in our first semester studying development. It shows some content formatted in JSON in a golang server using ```net/http``` package.
 
+This project was made by:
+- [Alexandre](https://github.com/alexxpgb) (F1 articles, design with Figma and oral presentation);
+- [Antoine](https://github.com/debarbarinantoine) (Organization, Golang backend and some HTML & CSS);
+- [Marin](https://github.com/harelmarin) (Football articles and images, terms and conditions, HTML and CSS);
+- [Thierry](https://github.com/thierry-mous) (mainly HTML and CSS);
+- [Yulan](https://github.com/yulannn) (Esport articles, CSS and HTML).
+
 ---
 
 ## Organization
